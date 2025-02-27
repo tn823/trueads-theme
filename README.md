@@ -1,1 +1,0 @@
-# trueads-theme
