@@ -1,0 +1,2112 @@
+<link rel="shortcut icon" href="https://trueads.ai/wp-content/plugins/dashboardd/assets/img/logo-trueads.png"
+    type="image/x-icon">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+<link rel="stylesheet" href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://trueads.ai/wp-content/plugins/dashboardd/assets/js/main.js?v=1740533258"></script>
+<link rel="stylesheet" href="https://trueads.ai/wp-content/plugins/dashboardd/assets/css/style.css">
+<link rel="stylesheet" href="https://trueads.ai/wp-content/plugins/dashboardd/assets/css/responsive.css">
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<style>
+    .itempage.active {
+        background: #ffffff;
+    }
+
+    .modal-backdrop {
+        --bs-backdrop-zindex: 1 !important;
+    }
+
+    .note-editing-area .note-editable {
+        background-color: #ffffff;
+    }
+
+    .wrapped {
+        overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+        .ban-con {
+            grid-template-columns: 100%;
+        }
+    }
+</style>
+<style>
+    .wrapper-loading-page {
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        background-color: rgba(0, 21, 36, 0.92);
+        width: 100vw;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+
+    .container-loading-page {
+        height: 300px;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .baton {
+        display: block;
+        height: 2px;
+        width: 70px;
+        background-color: #459fa5;
+        animation: scale 1.25s infinite linear;
+        -webkit-transform-origin: 0;
+        -moz-transform-origin: 0;
+        -ms-transform-origin: 0;
+        -o-transform-origin: 0;
+        transform-origin: 0;
+        -webkit-transform: rotate(-10deg);
+        -moz-transform: rotate(-10deg);
+        -ms-transform: rotate(-10deg);
+        -o-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+
+    .baton:before {
+        content: "";
+        display: block;
+        height: 5px;
+        width: 5px;
+        background-color: #f5a51c;
+        position: absolute;
+        top: -2px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    .baton:after {
+        content: "";
+        display: block;
+        height: 5px;
+        width: 5px;
+        background-color: #f5a51c;
+        position: absolute;
+        top: -2px;
+        right: 0;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    .metronome {
+        -webkit-transform-origin: 0;
+        -moz-transform-origin: 0;
+        -ms-transform-origin: 0;
+        -o-transform-origin: 0;
+        transform-origin: 0;
+        animation: metronome 1.25s infinite linear;
+    }
+
+    .baton-0 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+
+    .baton-0 .baton,
+    .baton-0 .baton:after,
+    .baton-0 .metronome {
+        animation-delay: 0s;
+    }
+
+    .baton-1 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(10deg);
+        -moz-transform: rotate(10deg);
+        -ms-transform: rotate(10deg);
+        -o-transform: rotate(10deg);
+    }
+
+    .baton-1 .baton,
+    .baton-1 .baton:after,
+    .baton-1 .metronome {
+        animation-delay: -0.14s;
+    }
+
+    .baton-2 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(20deg);
+        -moz-transform: rotate(20deg);
+        -ms-transform: rotate(20deg);
+        -o-transform: rotate(20deg);
+    }
+
+    .baton-2 .baton,
+    .baton-2 .baton:after,
+    .baton-2 .metronome {
+        animation-delay: -0.28s;
+    }
+
+    .baton-3 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(30deg);
+        -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+        -o-transform: rotate(30deg);
+    }
+
+    .baton-3 .baton,
+    .baton-3 .baton:after,
+    .baton-3 .metronome {
+        animation-delay: -0.42s;
+    }
+
+    .baton-4 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(40deg);
+        -moz-transform: rotate(40deg);
+        -ms-transform: rotate(40deg);
+        -o-transform: rotate(40deg);
+    }
+
+    .baton-4 .baton,
+    .baton-4 .baton:after,
+    .baton-4 .metronome {
+        animation-delay: -0.56s;
+    }
+
+    .baton-5 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(50deg);
+        -moz-transform: rotate(50deg);
+        -ms-transform: rotate(50deg);
+        -o-transform: rotate(50deg);
+    }
+
+    .baton-5 .baton,
+    .baton-5 .baton:after,
+    .baton-5 .metronome {
+        animation-delay: -0.7s;
+    }
+
+    .baton-6 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(60deg);
+        -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+        -o-transform: rotate(60deg);
+    }
+
+    .baton-6 .baton,
+    .baton-6 .baton:after,
+    .baton-6 .metronome {
+        animation-delay: -0.84s;
+    }
+
+    .baton-7 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(70deg);
+        -moz-transform: rotate(70deg);
+        -ms-transform: rotate(70deg);
+        -o-transform: rotate(70deg);
+    }
+
+    .baton-7 .baton,
+    .baton-7 .baton:after,
+    .baton-7 .metronome {
+        animation-delay: -0.98s;
+    }
+
+    .baton-8 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(80deg);
+        -moz-transform: rotate(80deg);
+        -ms-transform: rotate(80deg);
+        -o-transform: rotate(80deg);
+    }
+
+    .baton-8 .baton,
+    .baton-8 .baton:after,
+    .baton-8 .metronome {
+        animation-delay: -1.12s;
+    }
+
+    .baton-9 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+    }
+
+    .baton-9 .baton,
+    .baton-9 .baton:after,
+    .baton-9 .metronome {
+        animation-delay: -1.26s;
+    }
+
+    .baton-10 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(100deg);
+        -moz-transform: rotate(100deg);
+        -ms-transform: rotate(100deg);
+        -o-transform: rotate(100deg);
+    }
+
+    .baton-10 .baton,
+    .baton-10 .baton:after,
+    .baton-10 .metronome {
+        animation-delay: -1.4s;
+    }
+
+    .baton-11 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(110deg);
+        -moz-transform: rotate(110deg);
+        -ms-transform: rotate(110deg);
+        -o-transform: rotate(110deg);
+    }
+
+    .baton-11 .baton,
+    .baton-11 .baton:after,
+    .baton-11 .metronome {
+        animation-delay: -1.54s;
+    }
+
+    .baton-12 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(120deg);
+        -moz-transform: rotate(120deg);
+        -ms-transform: rotate(120deg);
+        -o-transform: rotate(120deg);
+    }
+
+    .baton-12 .baton,
+    .baton-12 .baton:after,
+    .baton-12 .metronome {
+        animation-delay: -1.68s;
+    }
+
+    .baton-13 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(130deg);
+        -moz-transform: rotate(130deg);
+        -ms-transform: rotate(130deg);
+        -o-transform: rotate(130deg);
+    }
+
+    .baton-13 .baton,
+    .baton-13 .baton:after,
+    .baton-13 .metronome {
+        animation-delay: -1.82s;
+    }
+
+    .baton-14 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(140deg);
+        -moz-transform: rotate(140deg);
+        -ms-transform: rotate(140deg);
+        -o-transform: rotate(140deg);
+    }
+
+    .baton-14 .baton,
+    .baton-14 .baton:after,
+    .baton-14 .metronome {
+        animation-delay: -1.96s;
+    }
+
+    .baton-15 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(150deg);
+        -moz-transform: rotate(150deg);
+        -ms-transform: rotate(150deg);
+        -o-transform: rotate(150deg);
+    }
+
+    .baton-15 .baton,
+    .baton-15 .baton:after,
+    .baton-15 .metronome {
+        animation-delay: -2.1s;
+    }
+
+    .baton-16 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(160deg);
+        -moz-transform: rotate(160deg);
+        -ms-transform: rotate(160deg);
+        -o-transform: rotate(160deg);
+    }
+
+    .baton-16 .baton,
+    .baton-16 .baton:after,
+    .baton-16 .metronome {
+        animation-delay: -2.24s;
+    }
+
+    .baton-17 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(170deg);
+        -moz-transform: rotate(170deg);
+        -ms-transform: rotate(170deg);
+        -o-transform: rotate(170deg);
+    }
+
+    .baton-17 .baton,
+    .baton-17 .baton:after,
+    .baton-17 .metronome {
+        animation-delay: -2.38s;
+    }
+
+    .baton-18 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+    }
+
+    .baton-18 .baton,
+    .baton-18 .baton:after,
+    .baton-18 .metronome {
+        animation-delay: -2.52s;
+    }
+
+    .baton-19 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(190deg);
+        -moz-transform: rotate(190deg);
+        -ms-transform: rotate(190deg);
+        -o-transform: rotate(190deg);
+    }
+
+    .baton-19 .baton,
+    .baton-19 .baton:after,
+    .baton-19 .metronome {
+        animation-delay: -2.66s;
+    }
+
+    .baton-20 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(200deg);
+        -moz-transform: rotate(200deg);
+        -ms-transform: rotate(200deg);
+        -o-transform: rotate(200deg);
+    }
+
+    .baton-20 .baton,
+    .baton-20 .baton:after,
+    .baton-20 .metronome {
+        animation-delay: -2.8s;
+    }
+
+    .baton-21 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(210deg);
+        -moz-transform: rotate(210deg);
+        -ms-transform: rotate(210deg);
+        -o-transform: rotate(210deg);
+    }
+
+    .baton-21 .baton,
+    .baton-21 .baton:after,
+    .baton-21 .metronome {
+        animation-delay: -2.94s;
+    }
+
+    .baton-22 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(220deg);
+        -moz-transform: rotate(220deg);
+        -ms-transform: rotate(220deg);
+        -o-transform: rotate(220deg);
+    }
+
+    .baton-22 .baton,
+    .baton-22 .baton:after,
+    .baton-22 .metronome {
+        animation-delay: -3.08s;
+    }
+
+    .baton-23 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(230deg);
+        -moz-transform: rotate(230deg);
+        -ms-transform: rotate(230deg);
+        -o-transform: rotate(230deg);
+    }
+
+    .baton-23 .baton,
+    .baton-23 .baton:after,
+    .baton-23 .metronome {
+        animation-delay: -3.22s;
+    }
+
+    .baton-24 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(240deg);
+        -moz-transform: rotate(240deg);
+        -ms-transform: rotate(240deg);
+        -o-transform: rotate(240deg);
+    }
+
+    .baton-24 .baton,
+    .baton-24 .baton:after,
+    .baton-24 .metronome {
+        animation-delay: -3.36s;
+    }
+
+    .baton-25 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(250deg);
+        -moz-transform: rotate(250deg);
+        -ms-transform: rotate(250deg);
+        -o-transform: rotate(250deg);
+    }
+
+    .baton-25 .baton,
+    .baton-25 .baton:after,
+    .baton-25 .metronome {
+        animation-delay: -3.5s;
+    }
+
+    .baton-26 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(260deg);
+        -moz-transform: rotate(260deg);
+        -ms-transform: rotate(260deg);
+        -o-transform: rotate(260deg);
+    }
+
+    .baton-26 .baton,
+    .baton-26 .baton:after,
+    .baton-26 .metronome {
+        animation-delay: -3.64s;
+    }
+
+    .baton-27 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+    }
+
+    .baton-27 .baton,
+    .baton-27 .baton:after,
+    .baton-27 .metronome {
+        animation-delay: -3.78s;
+    }
+
+    .baton-28 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(280deg);
+        -moz-transform: rotate(280deg);
+        -ms-transform: rotate(280deg);
+        -o-transform: rotate(280deg);
+    }
+
+    .baton-28 .baton,
+    .baton-28 .baton:after,
+    .baton-28 .metronome {
+        animation-delay: -3.92s;
+    }
+
+    .baton-29 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(290deg);
+        -moz-transform: rotate(290deg);
+        -ms-transform: rotate(290deg);
+        -o-transform: rotate(290deg);
+    }
+
+    .baton-29 .baton,
+    .baton-29 .baton:after,
+    .baton-29 .metronome {
+        animation-delay: -4.06s;
+    }
+
+    .baton-30 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(300deg);
+        -moz-transform: rotate(300deg);
+        -ms-transform: rotate(300deg);
+        -o-transform: rotate(300deg);
+    }
+
+    .baton-30 .baton,
+    .baton-30 .baton:after,
+    .baton-30 .metronome {
+        animation-delay: -4.2s;
+    }
+
+    .baton-31 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(310deg);
+        -moz-transform: rotate(310deg);
+        -ms-transform: rotate(310deg);
+        -o-transform: rotate(310deg);
+    }
+
+    .baton-31 .baton,
+    .baton-31 .baton:after,
+    .baton-31 .metronome {
+        animation-delay: -4.34s;
+    }
+
+    .baton-32 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(320deg);
+        -moz-transform: rotate(320deg);
+        -ms-transform: rotate(320deg);
+        -o-transform: rotate(320deg);
+    }
+
+    .baton-32 .baton,
+    .baton-32 .baton:after,
+    .baton-32 .metronome {
+        animation-delay: -4.48s;
+    }
+
+    .baton-33 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(330deg);
+        -moz-transform: rotate(330deg);
+        -ms-transform: rotate(330deg);
+        -o-transform: rotate(330deg);
+    }
+
+    .baton-33 .baton,
+    .baton-33 .baton:after,
+    .baton-33 .metronome {
+        animation-delay: -4.62s;
+    }
+
+    .baton-34 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(340deg);
+        -moz-transform: rotate(340deg);
+        -ms-transform: rotate(340deg);
+        -o-transform: rotate(340deg);
+    }
+
+    .baton-34 .baton,
+    .baton-34 .baton:after,
+    .baton-34 .metronome {
+        animation-delay: -4.76s;
+    }
+
+    .baton-35 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(350deg);
+        -moz-transform: rotate(350deg);
+        -ms-transform: rotate(350deg);
+        -o-transform: rotate(350deg);
+    }
+
+    .baton-35 .baton,
+    .baton-35 .baton:after,
+    .baton-35 .metronome {
+        animation-delay: -4.9s;
+    }
+
+    @keyframes metronome {
+        0% {
+            -webkit-transform: rotate(-25deg);
+            -moz-transform: rotate(-25deg);
+            -ms-transform: rotate(-25deg);
+            -o-transform: rotate(-25deg);
+            transform: rotate(-25deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(25deg);
+            -moz-transform: rotate(25deg);
+            -ms-transform: rotate(25deg);
+            -o-transform: rotate(25deg);
+            transform: rotate(25deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(-25deg);
+            -moz-transform: rotate(-25deg);
+            -ms-transform: rotate(-25deg);
+            -o-transform: rotate(-25deg);
+            transform: rotate(-25deg);
+        }
+    }
+
+    @keyframes scale {
+        0% {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            -o-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+        25% {
+            -webkit-transform: scaleX(0.74);
+            -moz-transform: scaleX(0.74);
+            -ms-transform: scaleX(0.74);
+            -o-transform: scaleX(0.74);
+            transform: scaleX(0.74);
+        }
+
+        50% {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            -o-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+        75% {
+            -webkit-transform: scaleX(1.16);
+            -moz-transform: scaleX(1.16);
+            -ms-transform: scaleX(1.16);
+            -o-transform: scaleX(1.16);
+            transform: scaleX(1.16);
+        }
+
+        100% {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            -o-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+    }
+</style>
+<div class="wrapper-loading-page" style="display: none;">
+    <div class="container-loading-page">
+        <div class="baton-0">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-1">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-2">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-3">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-4">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-5">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-6">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-7">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-8">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-9">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-10">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-11">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-12">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-13">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-14">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-15">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-16">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-17">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-18">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-19">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-20">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-21">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-22">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-23">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-24">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-25">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-26">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-27">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-28">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-29">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-30">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-31">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-32">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-33">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-34">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-35">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app">
+    <style>
+        .custom-tippy-style .tippy-box {
+            color: #000;
+            background-color: #fff !important;
+            box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+        }
+
+        .action-header-item {
+            width: 100%;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .action-header-item:hover {
+            background-color: rgb(243, 244, 245);
+        }
+    </style>
+    <div class="header">
+        <div class="logo">
+            <img src="https://trueads.ai/wp-content/plugins/dashboardd/\assets\img\logo.png" alt="Logo"
+                style="height: 35px;">
+            <div class="breadcrumb">
+                <h4 class="pagename">Trang tổng quan</h4>
+            </div>
+        </div>
+        <div class="header-right">
+            <!-- <i class="far fa-comment-alt" title="Gửi góp ý"></i> -->
+            <i class="fas fa-bars" id="bar-icon"></i>
+            <i class="far fa-bell" id="notification-icon"></i>
+            <div class="user-info" id="user-header" title="Thông tin tài khoản">
+                <span>Tên dev</span>
+                <img src="https://trueads.ai/wp-content/plugins/dashboardd//assets/img/user-icon.png" alt="User Avatar">
+            </div>
+        </div>
+    </div>
+
+    <div id="actions-header" style="width: 200px; display: none;flex-direction: column;">
+        <!-- <div style="width: 100%;">
+        <a href="javascript:void(0);">Thông tin tài khoản</a>
+    </div>
+    <hr /> -->
+        <div class="action-header-item">
+            <div style="width: 20px; height: 20px; color: rgb(163, 168, 175);">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" focusable="false"
+                    aria-hidden="true">
+                    <path fill="currentColor"
+                        d="M20 3h-9c-1.103 0-2 .897-2 2v4h2v-4h9v14h-9v-4h-2v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2">
+                    </path>
+                    <path fill="currentColor" d="m7 16-5-4 5-4v3h9v2h-9z"></path>
+                </svg>
+            </div>
+            <a href="javascript:void(0);" style="text-decoration: none;" onclick="logoutSubSite();">Đăng xuất cửa
+                hàng</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const actionsHeader = document.getElementById("actions-header");
+            const u = document.getElementById("user-header");
+            tippy(u, {
+                content: actionsHeader,
+                trigger: "click",
+                interactive: true,
+                placement: "bottom",
+                arrow: false,
+                onShow(instanceHeadless) {
+                    const tippyBox = instanceHeadless.popper;
+                    if (tippyBox.querySelector("#actions-header")) {
+                        tippyBox.classList.add("custom-tippy-style");
+                    }
+
+                    actionsHeader.style.display = "flex";
+                },
+
+            });
+        });
+    </script>
+    <div class="wrapped">
+        <div class="sidebar_main" id="menu-sidebar">
+            <div class="menu">
+                <ul>
+                    <li class="menu-item" data-arg="dashboards">
+                        <div class="icon-box">
+                            <i class="fas fa-home"></i> <a href="?arg=dashboards&param=index" aria-current="page"> Trang
+                                tổng quan</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="dashboards">
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="products">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="#4B5563">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m17.058 9.685-6.75-6.75A1.49 1.49 0 0 0 9.25 2.5H4c-.825 0-1.5.675-1.5 1.5v5.25c0 .412.165.787.442 1.065l6.75 6.75c.27.27.646.435 1.058.435.412 0 .787-.165 1.057-.442l5.25-5.25c.278-.27.443-.646.443-1.058 0-.412-.172-.795-.442-1.065Zm-6.308 6.322L4 9.25V4h5.25v-.007l6.75 6.75-5.25 5.264Z">
+                                    </path>
+                                    <path d="M5.875 7a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"></path>
+                                </svg>
+                            </svg> <a href="?arg=products&param=index" aria-current="page"> Sản phẩm</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="products">
+                            <li class="itempage" data-param="index"><a href="?arg=products&param=index"> Tất cả sản
+                                    phẩm</a></li>
+                            <li class="itempage" data-param="indexcategorys"><a
+                                    href="?arg=products&param=indexcategorys"> Danh mục sản phẩm</a></li>
+                            <li class="itempage" data-param="brands"><a href="?arg=products&param=brands"> Thương
+                                    hiệu</a></li>
+                            <li class="itempage" data-param="attribute"><a href="?arg=products&param=attribute"> Thuộc
+                                    tính sản phẩm</a></li>
+                            <li class="itempage" data-param="sort_attr"><a href="?arg=products&param=sort_attr"> Bộ lọc
+                                    sản phẩm</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="orders">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="#4B5563"><svg viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13.41 10.75c.562 0 1.057-.307 1.312-.773l2.685-4.867A.747.747 0 0 0 16.755 4h-11.1L4.95 2.5H2.497V4h1.5l2.7 5.693-1.012 1.83c-.548 1.005.172 2.227 1.312 2.227h9v-1.5h-9l.825-1.5h5.588ZM6.367 5.5h9.113l-2.07 3.75H8.145L6.367 5.5Zm.63 9c-.825 0-1.492.675-1.492 1.5s.667 1.5 1.492 1.5 1.5-.675 1.5-1.5-.675-1.5-1.5-1.5Zm7.5 0c-.825 0-1.492.675-1.492 1.5s.667 1.5 1.492 1.5 1.5-.675 1.5-1.5-.675-1.5-1.5-1.5Z">
+                                    </path>
+                                </svg></svg> <a href="?arg=orders&param=index" aria-current="page"> Đơn hàng</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="orders">
+                            <li class="itempage" data-param="index"><a href="?arg=orders&param=index"> Danh sách đơn
+                                    hàng</a></li>
+                            <li class="itempage" data-param="create"><a href="?arg=orders&param=create"> Tạo đơn
+                                    hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="customers">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="#4B5563" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.502 10.848c1.028.697 1.748 1.642 1.748 2.902V16h3v-2.25c0-1.635-2.678-2.602-4.748-2.902ZM12.25 10a3 3 0 1 0 0-6c-.352 0-.682.075-.998.18a4.485 4.485 0 0 1 0 5.64c.316.105.646.18.998.18Zm-4.5 0a3 3 0 1 0 0-6 3 3 0 1 0 0 6Zm0-4.5c.825 0 1.5.675 1.5 1.5s-.675 1.5-1.5 1.5-1.5-.675-1.5-1.5.675-1.5 1.5-1.5Zm0 5.25c-2.003 0-6 1.005-6 3V16h12v-2.25c0-1.995-3.998-3-6-3Zm4.5 3.75h-9v-.742c.15-.54 2.475-1.508 4.5-1.508s4.35.967 4.5 1.5v.75Z">
+                                </path>
+                            </svg> <a href="?arg=customers&param=index" aria-current="page"> Khách hàng</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="customers">
+                            <li class="itempage" data-param="index"><a href="?arg=customers&param=index"> Danh sách
+                                    khách hàng</a></li>
+                            <li class="itempage" data-param="create"><a href="?arg=customers&param=create"> Tạo khách
+                                    hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="settings">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                                <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                            </svg> <a href="?arg=settings&param=index" aria-current="page"> Cài đặt</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="settings">
+                            <li class="itempage" data-param="payment"><a href="?arg=settings&param=payment"> Cài đặt
+                                    thanh toán</a></li>
+                            <li class="itempage" data-param="email"><a href="?arg=settings&param=email"> Cài đặt
+                                    email</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="interfaces">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icon-tabler-layout-dashboard">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <rect x="4" y="4" width="6" height="8" rx="2"></rect>
+                                <rect x="4" y="16" width="6" height="4" rx="2"></rect>
+                                <rect x="14" y="12" width="6" height="8" rx="2"></rect>
+                                <rect x="14" y="4" width="6" height="4" rx="2"></rect>
+                            </svg>
+                            <a href="?arg=interfaces&param=index" aria-current="page"> Website</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="interfaces">
+                            <li class="itempage" data-param="interface"><a href="file:///C:/Users/trngh/OneDrive/Máy%20tính/trueads/itf-true-ads.html"> Giao diện</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="icon-box"><i class="fas fa-comment-medical"></i>
+                    <a href="https://dev-true-ads.trueads.ai/dashboard/social-channel/" target="_blank">Social
+                        channel</a>
+                </div>
+                <!-- <ul>
+            <a class="_main_menu_parent_ims2a_30 active" href="#" aria-current="page">
+                <div>Kênh bán hàng</div>
+                <div class="_add_channel_btn_ims2a_48"><img src="data:image/svg+xml,%3csvg%20viewBox='0%200%2016%2016'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M6%204.474c-.26.26-.26.68%200%20.94L8.587%208%206%2010.587a.664.664%200%201%200%20.94.94L10%208.467c.26-.26.26-.68%200-.94l-3.06-3.06a.67.67%200%200%200-.94.007Z'%20fill='%239CA3B0'/%3e%3c/svg%3e" width="20" height="20" alt="icon-right">
+                </div>
+
+            </a>
+            <li class="menu-item">
+                <div class="icon-box">
+                    <svg width="20" height="20" fill="#4B5563"><svg viewBox="0 0 40 40" fill="none">
+                            <rect width="40.001" height="40" rx="4" fill="#B3E5FC"></rect>
+                            <rect x="2" y="2" width="36.001" height="36" rx="4" fill="#0091EA"></rect>
+                            <path d="M26.63 18.482a1.61 1.61 0 0 1-1.608-1.608h-.568l.58-.08-.687-4.973h2.011c.314 0 .591.21.677.511l1.202 4.611a1.61 1.61 0 0 1-1.607 1.54Zm-13.642-6.148a.704.704 0 0 1 .677-.513h2.01l-.687 4.973.58.08h-.591a1.61 1.61 0 0 1-1.608 1.608 1.612 1.612 0 0 1-1.607-1.538l1.226-4.61Zm6.437-.513v5.053h-.05a1.61 1.61 0 0 1-1.608 1.608 1.61 1.61 0 0 1-1.607-1.604l.698-5.057h2.567Zm3.74 0 .005.04.693 5.012h-.023a1.61 1.61 0 0 1-1.607 1.61 1.61 1.61 0 0 1-1.609-1.61h-.026v-5.052h2.566Zm5.002.212-.002-.009a1.88 1.88 0 0 0-1.807-1.375H13.665a1.88 1.88 0 0 0-1.807 1.375l-1.269 4.773v.076c0 .956.485 1.801 1.221 2.3v5.496c0 .744.606 1.35 1.35 1.35h13.705a1.35 1.35 0 0 0 1.349-1.35v-5.512a2.777 2.777 0 0 0 1.196-2.284v-.075l-1.243-4.765Z" fill="#fff"></path>
+                            <path d="M17.871 27.275h4.258v-1.29H17.87v1.29Z" fill="#fff"></path>
+                            <path d="M23.25 28.53h-6.5a.644.644 0 1 1 0-1.288h6.5a.645.645 0 0 1 0 1.289" fill="#fff"></path>
+                        </svg></svg>
+                    <a href="#">Website </a>
+                    <div class="_menu_item_right_action_wrapper_ims2a_221"><span class="trigger ml-auto"><span class="_menu_item_right_action_ims2a_129"><img src="data:image/svg+xml,%3csvg%20width='18'%20height='18'%20viewBox='0%200%2018%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M9%203.375C5.25%203.375%202.047%205.707.75%209c1.297%203.293%204.5%205.625%208.25%205.625S15.953%2012.293%2017.25%209C15.953%205.707%2012.75%203.375%209%203.375Zm0%209.375c-2.07%200-3.75-1.68-3.75-3.75%200-2.07%201.68-3.75%203.75-3.75%202.07%200%203.75%201.68%203.75%203.75%200%202.07-1.68%203.75-3.75%203.75Zm0-6A2.247%202.247%200%200%200%206.75%209%202.247%202.247%200%200%200%209%2011.25%202.247%202.247%200%200%200%2011.25%209%202.247%202.247%200%200%200%209%206.75Z'%20fill='%239CA3B0'/%3e%3c/svg%3e" alt="icon eye" width="18" height="18"></span></span></div>
+                </div>
+
+                <ul class="submenu">
+                    <li><a href="#">Cấu hình chung</a>
+                        <ul class="submenu">
+                            <li><a href="#">Tất cả trang</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Thiết lập tổng quan</a></li>
+                    <li><a href="#">Menu</a></li>
+                    <li><a href="#">Tin tức</a>
+                        <ul class="submenu">
+                            <li><a href="#">Tất cả tin tức</a></li>
+                            <li><a href="#">Danh mục tin tức</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">User đăng nhập</a></li>
+                    <li><a href="#">Mã code</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                    <li><a href="#">Thanh toán</a>
+                        <ul class="submenu">
+                            <li><a href="#">Bật/tắt hình thức thanh toán</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+            </div>
+
+
+        </div>
+        <div class="content">
+            <div class="container content-dashboard">
+                <div class="notification-main">
+                    <div class="ban-con">
+                        <div class="noidung-bancon">
+                            <h2>Bạn còn 15 ngày dùng thử miễn phí </h2>
+                            <p>Nâng cấp lên gói sản phẩm để trải nghiệm mua sắm dành cho khách hàng của bạn không bị
+                                gián đoạn.</p>
+                            <!-- <a href="#">Nâng cấp ngay</a> -->
+                        </div>
+                        <div class="so-ngay">
+                            <div class="progress-circular" style="width: 64px; height: 64px;">
+                                <div class="progress-circular-value">
+                                    <p>15</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ban-con">
+                        <div class="noidung-bancon">
+                            <h2>Bạn cần hỗ trợ trong quá trình thử nghiệm</h2>
+                            <p>Hãy để TrueAds tư vấn theo nhu cầu, demo sản phẩm và hỗ trợ các câu hỏi của bạn.</p>
+                            <!-- <a href="#">Chat với TrueAds</a> -->
+                        </div>
+                        <div class="img-chat">
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="200" height="100">
+                        </div>
+                    </div>
+                </div>
+                <div class="ketqua">
+                    <h1>Kết quả kinh doanh hôm nay </h1>
+                    <div class="doanhthu-donhang">
+                        <div class="content-danhthu">
+                            <h4>Doanh thu </h4>
+                            <p id="revenue-today">0</p>
+                            <a class="xem-baocao" href="#">Xem báo cáo </a>
+
+                        </div>
+                        <div class="content-danhthu">
+                            <h4>Đơn hàng </h4>
+                            <p id="order-today">0</p>
+                            <a class="xem-baocao" href="#">Xem báo cáo </a>
+
+                        </div>
+                        <div class="order-status-dashboard">
+                            <h1>Trạng thái đơn hàng</h1>
+                            <div class="dashboard-order-summary status-order">
+                                <!-- Chưa thanh toán -->
+                                <div class="dashboard-order-summary__item" data-id="not-yet-paid-tag">
+                                    <div class="dashboard-order-summary__icon mgr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M4 4h16c1.11 0 2 .89 2 2v7.034A6.495 6.495 0 0 0 16.5 10a6.48 6.48 0 0 0-4.69 2H4v6h6.174c.17.72.46 1.395.848 2H4c-1.11 0-2-.89-2-2l.01-12c0-1.11.88-2 1.99-2Zm0 4h16V6H4v2Z"
+                                                fill="#4B5563"></path>
+                                            <path
+                                                d="M16.5 11a5.502 5.502 0 0 0-5.5 5.5c0 3.036 2.464 5.5 5.5 5.5s5.5-2.464 5.5-5.5-2.464-5.5-5.5-5.5Zm0 9.35a3.854 3.854 0 0 1-3.85-3.85 3.854 3.854 0 0 1 3.85-3.85 3.854 3.854 0 0 1 3.85 3.85 3.854 3.854 0 0 1-3.85 3.85Z"
+                                                fill="#DB7706"></path>
+                                            <path d="M17.05 13.75h-1.1v2.981l1.804 1.804.781-.781-1.485-1.485V13.75Z"
+                                                fill="#DB7706"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="so-donhang" id="not-yet-paid">0</span>
+                                    <span class="text-sodonhang">chưa thanh toán</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none">
+                                        <path d="M7.066 13.825 10.692 10 7.066 6.175 8.183 5l4.75 5-4.75 5-1.117-1.175Z"
+                                            fill="#9CA3B0"></path>
+                                    </svg>
+                                </div>
+                                <!-- Chưa giao hàng -->
+                                <div class="dashboard-order-summary__item" data-id="not-yet-delivered-tag">
+                                    <div class="dashboard-order-summary__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 8h3l3 4v2l-1.54-2-1.96-2.5H15V6H3v9h.78c.55-.61 1.33-1 2.22-1 .89 0 1.67.39 2.22 1h1.954a6.52 6.52 0 0 0-.155 2H9c0 1.66-1.34 3-3 3s-3-1.34-3-3H1V6c0-1.1.9-2 2-2h14v4Zm5.981 9H23l-.018-.01V17ZM5 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1Z"
+                                                fill="#4B5563"></path>
+                                            <path
+                                                d="M16.5 11a5.502 5.502 0 0 0-5.5 5.5c0 3.036 2.464 5.5 5.5 5.5s5.5-2.464 5.5-5.5-2.464-5.5-5.5-5.5Zm0 9.35a3.854 3.854 0 0 1-3.85-3.85 3.854 3.854 0 0 1 3.85-3.85 3.854 3.854 0 0 1 3.85 3.85 3.854 3.854 0 0 1-3.85 3.85Z"
+                                                fill="#DB7706"></path>
+                                            <path d="M17.05 13.75h-1.1v2.981l1.804 1.804.781-.781-1.485-1.485V13.75Z"
+                                                fill="#DB7706"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="so-donhang" id="not-yet-delivered">0</span>
+                                    <span class="text-sodonhang">chưa giao hàng</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none">
+                                        <path d="M7.066 13.825 10.692 10 7.066 6.175 8.183 5l4.75 5-4.75 5-1.117-1.175Z"
+                                            fill="#9CA3B0"></path>
+                                    </svg>
+                                </div>
+                                <!-- Đang giao hàng -->
+                                <div class="dashboard-order-summary__item" data-id="are-delivering-tag">
+                                    <div class="dashboard-order-summary__icon ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 8h3l3 4h-1.54L19.5 9.5H15V6H3v9h.78c.55-.61 1.33-1 2.22-1 .89 0 1.67.39 2.22 1H11v2H9c0 1.66-1.34 3-3 3s-3-1.34-3-3H1V6c0-1.1.9-2 2-2h14v4ZM5 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1Z"
+                                                fill="#4B5563"></path>
+                                            <path d="M19.273 14h-2.455l2.727 4-2.727 4h2.455L22 18l-2.727-4Z"
+                                                fill="#16A249"></path>
+                                            <path d="M15.454 14H13l2.727 4L13 22h2.454l2.728-4-2.727-4Z" fill="#16A249">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <span class="so-donhang" id="are-delivering">0</span>
+                                    <span class="text-sodonhang">đang giao hàng</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none">
+                                        <path d="M7.066 13.825 10.692 10 7.066 6.175 8.183 5l4.75 5-4.75 5-1.117-1.175Z"
+                                            fill="#9CA3B0"></path>
+                                    </svg>
+                                </div>
+                                <!-- Hủy đơn hàng -->
+                                <div class="dashboard-order-summary__item" data-id="order-cancelled-tag">
+                                    <div class="dashboard-order-summary__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 4H4c-1.11 0-2 .9-2 2v10c0 1.1.89 2 2 2h13c1.1 0 2-.9 2-2v-3l4-3-4-3V6c0-1.1-.9-2-2-2Zm0 2v3H4V6h13Zm0 5v3H4v-3h13Zm2.5.667V9l2 1.5-2 1.5v-1.333ZM1 17v2h18v-2H1Z"
+                                                fill="#4B5563"></path>
+                                            <path
+                                                d="M14.5 11c-3.032 0-5.5 2.467-5.5 5.5S11.468 22 14.5 22s5.5-2.468 5.5-5.5-2.468-5.5-5.5-5.5Zm-3.5 5.5c0-1.93 1.57-3.5 3.5-3.5 1.93 0 3.5 1.57 3.5 3.5 0 1.93-1.57 3.5-3.5 3.5-1.93 0-3.5-1.57-3.5-3.5Zm3.5 2.5c1.38 0 2.5-1.12 2.5-2.5S15.88 15 14.5 15c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5Zm0-4a1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5 1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5Z"
+                                                fill="#DA3A3A"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="so-donhang" id="order-cancelled">0</span>
+                                    <span class="text-sodonhang">hủy đơn hàng</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none">
+                                        <path d="M7.066 13.825 10.692 10 7.066 6.175 8.183 5l4.75 5-4.75 5-1.117-1.175Z"
+                                            fill="#9CA3B0"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-goiy" style="margin-top: 1.6rem;">
+                    <h1>Gợi ý để bán hàng thuận lợi hơn </h1>
+                    <div class="slide-inner" id="slide">
+                        <div class="slide-item">
+                            <h2>Tạo sản phẩm đầu tiên của bạn</h2>
+                            <p>Hãy giúp cho khách hàng biết đến những sản phẩm tuyệt vời của bạn.</p>
+                            <div class="first-suggestion__img mgt-4 mgb-4 text-center w-100"><svg width="120"
+                                    height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#fff" d="M0 0h120v120H0z"></path>
+                                    <g clip-path="url(#a)">
+                                        <path d="M22.326 39.41h75.349v52.115H22.326V39.409Z" fill="#EBEBEB"></path>
+                                        <path
+                                            d="M93.7 91.525H71.689v-34.57c0-1.048.85-1.898 1.898-1.898h18.214c1.049 0 1.899.85 1.899 1.899v34.569Z"
+                                            fill="#D2D2D2"></path>
+                                        <path
+                                            d="M91.2 91.525H74.189V59.36c0-.887.719-1.607 1.606-1.607h13.799c.887 0 1.606.72 1.606 1.607v32.166Z"
+                                            fill="#FEFEFE"></path>
+                                        <path
+                                            d="M78.53 73.118a2.194 2.194 0 1 0-1.678-4.055 2.194 2.194 0 0 0 1.677 4.055Z"
+                                            fill="#21C45D"></path>
+                                        <path
+                                            d="M26.524 55.057h39.857c1.167 0 2.112.946 2.112 2.112v24.147a2.112 2.112 0 0 1-2.112 2.113H26.525a2.112 2.112 0 0 1-2.113-2.113V57.17c0-1.166.946-2.112 2.113-2.112Z"
+                                            fill="#D2D2D2"></path>
+                                        <path
+                                            d="M64.874 81.363H28.032a1.416 1.416 0 0 1-1.417-1.416V58.539a1.416 1.416 0 0 1 1.417-1.417h36.842a1.417 1.417 0 0 1 1.416 1.417v21.408a1.416 1.416 0 0 1-1.416 1.416Z"
+                                            fill="#FEFEFE"></path>
+                                        <path
+                                            d="M29.11 53.796h-.62a7.49 7.49 0 0 1-7.49-7.49v-6.897l7.746-.306 7.854.306v6.897a7.49 7.49 0 0 1-7.49 7.49Z"
+                                            fill="#0D3EC2"></path>
+                                        <path
+                                            d="M44.709 53.796h-.619a7.49 7.49 0 0 1-7.49-7.49v-6.897l7.627-.611 7.973.611v6.897a7.49 7.49 0 0 1-7.491 7.49Z"
+                                            fill="#57BDE0"></path>
+                                        <path
+                                            d="M60.31 53.796h-.62a7.49 7.49 0 0 1-7.49-7.49v-6.897l7.77-.611 7.83.611v6.897a7.49 7.49 0 0 1-7.49 7.49Z"
+                                            fill="#0D3EC2"></path>
+                                        <path
+                                            d="M75.91 53.796h-.62a7.49 7.49 0 0 1-7.49-7.49v-6.897l7.688-.611 7.912.611v6.897a7.49 7.49 0 0 1-7.49 7.49Z"
+                                            fill="#57BDE0"></path>
+                                        <path
+                                            d="M91.51 53.796h-.62a7.49 7.49 0 0 1-7.49-7.49v-6.897l7.756-.611 7.844.611v6.897a7.49 7.49 0 0 1-7.49 7.49Z"
+                                            fill="#0D3EC2"></path>
+                                        <path
+                                            d="M44 25.627h-7.554c-1.933 0-3.727.928-4.735 2.45L21 39.409h15.6L44 25.627Z"
+                                            fill="#1D4FD7"></path>
+                                        <path d="M54.666 25.627H44L36.6 39.41h15.6l2.466-13.782Z" fill="#7ED8F6"></path>
+                                        <path d="M65.334 25.627H54.667L52.2 39.41h15.6l-2.466-13.782Z" fill="#1D4FD7">
+                                        </path>
+                                        <path d="M76 25.627H65.333L67.8 39.41h15.6L76 25.627Z" fill="#7ED8F6"></path>
+                                        <path
+                                            d="M83.554 25.627H76l7.4 13.782H99L88.29 28.077c-1.009-1.522-2.803-2.45-4.736-2.45Zm14.311 68.746h-75.73a.945.945 0 0 1-.945-.944v-3.694a4.622 4.622 0 0 1 4.623-4.623h68.374a4.622 4.622 0 0 1 4.622 4.623v3.694a.944.944 0 0 1-.944.944Z"
+                                            fill="#1D4FD7"></path>
+                                        <g clip-path="url(#b)">
+                                            <path
+                                                d="M95.4 106.8c7.29 0 13.2-1.209 13.2-2.7s-5.91-2.7-13.2-2.7c-7.29 0-13.2 1.209-13.2 2.7s5.91 2.7 13.2 2.7Z"
+                                                fill="url(#c)"></path>
+                                            <path
+                                                d="M108.693 87.693c0-7.341-5.952-13.293-13.293-13.293-7.31 0-13.22 5.848-13.293 13.157-.055 5.52 3.255 10.273 8.005 12.335a4.57 4.57 0 0 1 1.961 1.626l2.379 3.499c.454.669 1.44.669 1.895 0l2.379-3.499a4.556 4.556 0 0 1 1.954-1.623c4.714-2.043 8.013-6.737 8.013-12.202Z"
+                                                fill="url(#d)"></path>
+                                            <path
+                                                d="m108.277 91.003-7.939-7.939a6.77 6.77 0 1 0-9.568 9.568l8.367 8.366a4.53 4.53 0 0 1 1.543-1.103 13.323 13.323 0 0 0 7.597-8.892Z"
+                                                fill="#F92814"></path>
+                                            <path d="M95.4 94.462a6.77 6.77 0 1 0 0-13.538 6.77 6.77 0 0 0 0 13.538Z"
+                                                fill="#fff"></path>
+                                        </g>
+                                    </g>
+                                    <defs>
+                                        <linearGradient id="c" x1="100.158" y1="103.885" x2="82.2" y2="103.885"
+                                            gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#F59F0A"></stop>
+                                            <stop offset="1" stop-color="#fff"></stop>
+                                        </linearGradient>
+                                        <linearGradient id="d" x1="87.377" y1="79.67" x2="113.9" y2="106.193"
+                                            gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#FF7044"></stop>
+                                            <stop offset="1" stop-color="#F92814"></stop>
+                                        </linearGradient>
+                                        <clipPath id="a">
+                                            <path fill="#fff" transform="translate(9.6 9.6)" d="M0 0h100.8v100.8H0z">
+                                            </path>
+                                        </clipPath>
+                                        <clipPath id="b">
+                                            <path fill="#fff" transform="translate(79.2 74.4)" d="M0 0h32.4v32.4H0z">
+                                            </path>
+                                        </clipPath>
+                                    </defs>
+                                </svg></div>
+                            <div class="btn-huongdan">
+                                <a class="huong-dan" href="#">Nâng cấp ngay</a>
+                                <a class="tao-sp" href="#">Tạo sản phẩm</a>
+                            </div>
+                        </div>
+                        <div class="slide-item">
+                            <h2>Điều chỉnh giao diện </h2>
+                            <p>Bắt đầu thay đổi hình ảnh &amp; logo để website của bạn trở nên khác biệt.
+                            </p>
+                            <svg width="120" height="120" viewBox="0 0 120 120" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#fff" d="M0 0h120v120H0z"></path>
+                                <ellipse cx="39.579" cy="97.707" rx="22.232" ry="5.037" fill="url(#a)"></ellipse>
+                                <path
+                                    d="M93.302 28.2H73.918a3.237 3.237 0 0 0-2.277.95L40.287 60.38l29.69 29.575 31.386-31.184a3.214 3.214 0 0 0 .92-2.35V37.115a8.96 8.96 0 0 0-2.651-6.295 9.031 9.031 0 0 0-6.33-2.619Zm-6.187 19.663a3.235 3.235 0 0 1-3.52.696 3.228 3.228 0 0 1-1.45-1.185 3.21 3.21 0 0 1 1.45-4.76 3.243 3.243 0 0 1 3.52.695 3.218 3.218 0 0 1 .948 2.277 3.206 3.206 0 0 1-.948 2.277Z"
+                                    fill="#1D4FD7"></path>
+                                <path
+                                    d="M93.302 28.2H73.918a3.237 3.237 0 0 0-2.277.95L40.287 60.38l29.69 29.575 31.386-31.184a3.214 3.214 0 0 0 .92-2.35V37.115a8.96 8.96 0 0 0-2.651-6.295 9.031 9.031 0 0 0-6.33-2.619Zm-6.187 19.663a3.235 3.235 0 0 1-3.52.696 3.228 3.228 0 0 1-1.45-1.185 3.21 3.21 0 0 1 1.45-4.76 3.243 3.243 0 0 1 3.52.695 3.218 3.218 0 0 1 .948 2.277 3.206 3.206 0 0 1-.948 2.277Z"
+                                    fill="#1D4FD7"></path>
+                                <path
+                                    d="m40.287 60.381-9.078 8.995a8.19 8.19 0 0 0-2.41 5.793 8.163 8.163 0 0 0 2.41 5.792L49.317 99a8.226 8.226 0 0 0 5.815 2.4 8.247 8.247 0 0 0 5.815-2.4l9.03-9.043-29.69-29.575Z"
+                                    fill="#3ABFF8"></path>
+                                <mask id="b" maskUnits="userSpaceOnUse" x="62" y="58" width="36" height="36"
+                                    style="mask-type: alpha;">
+                                    <path
+                                        d="M79.837 93.342c9.764 0 17.679-7.885 17.679-17.61 0-9.726-7.915-17.61-17.68-17.61-9.763 0-17.678 7.884-17.678 17.61 0 9.725 7.915 17.61 17.679 17.61Z"
+                                        fill="#3ABFF8"></path>
+                                </mask>
+                                <g mask="url(#b)">
+                                    <path
+                                        d="M79.837 93.342c9.764 0 17.679-7.885 17.679-17.61 0-9.726-7.915-17.61-17.68-17.61-9.763 0-17.678 7.884-17.678 17.61 0 9.725 7.915 17.61 17.679 17.61Z"
+                                        fill="#D08400"></path>
+                                    <path
+                                        d="M79.947 89.38c10.069 0 18.231-8.131 18.231-18.161 0-10.03-8.162-18.16-18.231-18.16s-18.231 8.13-18.231 18.16 8.162 18.16 18.231 18.16Z"
+                                        fill="#F59F0A"></path>
+                                    <path
+                                        d="M88.677 73.53h-6.63v-6.604c0-.583-.233-1.143-.647-1.556a2.214 2.214 0 0 0-3.125 0 2.197 2.197 0 0 0-.648 1.556v6.604h-6.63c-.585 0-1.147.232-1.562.645a2.197 2.197 0 0 0 0 3.113c.415.413.977.645 1.563.645h6.63v6.603c0 .584.232 1.144.647 1.557a2.214 2.214 0 0 0 3.125 0c.414-.413.647-.973.647-1.556v-6.604h6.63c.586 0 1.148-.232 1.562-.645a2.197 2.197 0 0 0 0-3.113 2.214 2.214 0 0 0-1.562-.645Z"
+                                        fill="#fff"></path>
+                                </g>
+                                <path
+                                    d="m30.434 20.85 2.456 6.69c.105.287.314.514.576.629l6.136 2.678c.867.378.867 1.716 0 2.094l-6.136 2.678a1.085 1.085 0 0 0-.576.628l-2.456 6.69c-.347.946-1.574.946-1.92 0l-2.457-6.69a1.086 1.086 0 0 0-.576-.628l-6.136-2.678c-.867-.378-.867-1.716 0-2.094l6.136-2.678c.262-.115.47-.342.575-.628l2.457-6.69c.347-.946 1.574-.946 1.921 0Z"
+                                    fill="#21C45D"></path>
+                                <path
+                                    d="m17.06 50.816 1.436 3.928a.637.637 0 0 0 .337.369l3.586 1.572c.507.222.507 1.008 0 1.23l-3.586 1.572a.636.636 0 0 0-.337.37l-1.435 3.927c-.203.555-.92.555-1.123 0l-1.436-3.928a.637.637 0 0 0-.336-.369l-3.587-1.572c-.507-.222-.507-1.008 0-1.23l3.587-1.572a.636.636 0 0 0 .336-.369l1.436-3.928c.203-.555.92-.555 1.123 0Zm37.582-35.927 1.64 4.61a.74.74 0 0 0 .385.434l4.099 1.845c.578.261.578 1.183 0 1.444l-4.099 1.846a.74.74 0 0 0-.385.433l-1.64 4.61c-.232.652-1.052.652-1.284 0l-1.64-4.61a.74.74 0 0 0-.385-.433l-4.099-1.846c-.579-.26-.579-1.183 0-1.444l4.099-1.845a.74.74 0 0 0 .385-.433l1.64-4.611c.232-.652 1.052-.652 1.284 0Z"
+                                    fill="#E6E6E6"></path>
+                                <defs>
+                                    <linearGradient id="a" x1="17.348" y1="97.707" x2="61.811" y2="97.707"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#D9D9D9" stop-opacity="0"></stop>
+                                        <stop offset="0.565" stop-color="#737373" stop-opacity="0.3"></stop>
+                                        <stop offset="1" stop-color="#737373" stop-opacity="0.6"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="btn-huongdan">
+                                <a class="huong-dan" href="#">Nâng cấp ngay</a>
+                                <a class="tao-sp" href="#">Tạo sản phẩm</a>
+                            </div>
+                        </div>
+                        <div class="slide-item">
+                            <h2>Thiết lập địa điểm kinh doanh </h2>
+                            <p>Thêm hoặc thay đổi địa điểm, đây có thể vừa là kho và cửa hàng của bạn.
+                            </p>
+                            <div class="first-suggestion__img mgt-4 mgb-4 text-center w-100"><svg width="120"
+                                    height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#fff" d="M0 0h120v120H0z"></path>
+                                    <path fill="url(#a)" d="M48 90.6h27v6H48z"></path>
+                                    <path fill="url(#b)" d="M19.199 81h35.4v2.4h-35.4z"></path>
+                                    <path
+                                        d="M61.242 73.165H44.383a8.783 8.783 0 0 1-1.798 8.649l-1.436 1.599h23.327l-1.436-1.6a8.785 8.785 0 0 1-1.798-8.648Z"
+                                        fill="#1FA8E2"></path>
+                                    <path
+                                        d="M19.479 62.435v7.5a3.233 3.233 0 0 0 3.233 3.23h60.201a3.231 3.231 0 0 0 3.234-3.23v-7.5H19.478Z"
+                                        fill="#3ABFF8"></path>
+                                    <path
+                                        d="M82.913 23.4H22.856a3.383 3.383 0 0 0-3.378 3.389v35.646h66.67V26.63a3.231 3.231 0 0 0-3.234-3.23Z"
+                                        fill="#EBEBEB"></path>
+                                    <path
+                                        d="M22.2 28.4a2 2 0 0 1 2-2h57.2a2 2 0 0 1 2 2v29a2 2 0 0 1-2 2H24.2a2 2 0 0 1-2-2v-29Z"
+                                        fill="#1D4FD7"></path>
+                                    <path
+                                        d="M39.6 54.6a2.4 2.4 0 0 1 2.4-2.4h21a2.4 2.4 0 1 1 0 4.8H42a2.4 2.4 0 0 1-2.4-2.4Z"
+                                        fill="#F59F0A"></path>
+                                    <path d="M24.6 31.2a3 3 0 0 1 3-3H39a3 3 0 1 1 0 6H27.6a3 3 0 0 1-3-3Z" fill="#fff">
+                                    </path>
+                                    <path opacity="0.5"
+                                        d="M52.8 31.5a.9.9 0 0 1 .9-.9h4.8a.9.9 0 1 1 0 1.8h-4.8a.9.9 0 0 1-.9-.9Z"
+                                        fill="#fff"></path>
+                                    <path opacity="0.5"
+                                        d="M51 40.5a.9.9 0 0 1 .9-.9h19.8a.9.9 0 1 1 0 1.8H51.9a.9.9 0 0 1-.9-.9Zm0 3a.9.9 0 0 1 .9-.9h15a.9.9 0 1 1 0 1.8h-15a.9.9 0 0 1-.9-.9Zm0 3a.9.9 0 0 1 .9-.9h19.8a.9.9 0 1 1 0 1.8H51.9a.9.9 0 0 1-.9-.9Z"
+                                        fill="#0935AE"></path>
+                                    <path opacity="0.5"
+                                        d="M60 31.5a.9.9 0 0 1 .9-.9h4.8a.9.9 0 1 1 0 1.8h-4.8a.9.9 0 0 1-.9-.9Zm7.2 0a.9.9 0 0 1 .9-.9h4.2a.9.9 0 1 1 0 1.8h-4.2a.9.9 0 0 1-.9-.9Z"
+                                        fill="#fff"></path>
+                                    <path
+                                        d="M24.6 38.8c0-1.215 1.074-2.2 2.4-2.2h18c1.325 0 2.4.985 2.4 2.2v8.8c0 1.215-1.075 2.2-2.4 2.2H27c-1.326 0-2.4-.985-2.4-2.2v-8.8Z"
+                                        fill="#FDFDFD" fill-opacity="0.1"></path>
+                                    <path d="m40.05 40.05-2.5 4.5-3.75-6.75-5 9h15l-3.75-6.75Z" fill="#fff"
+                                        fill-opacity="0.4"></path>
+                                    <g clip-path="url(#c)">
+                                        <path d="M72.6 53.61v39.18h28.297V53.61H72.6Z" fill="#0D3FC5"></path>
+                                        <path
+                                            d="M76.41 67.033c0-1.102.974-1.996 2.176-1.996h16.326c1.202 0 2.176.894 2.176 1.996v7.981c0 1.102-.974 1.995-2.176 1.995H78.585c-1.202 0-2.177-.893-2.177-1.995v-7.981Z"
+                                            fill="#FDFDFD" fill-opacity="0.1"></path>
+                                        <path d="m90.421 68.166-2.267 4.082-3.401-6.122-4.535 8.162h13.604l-3.4-6.122Z"
+                                            fill="#fff" fill-opacity="0.4"></path>
+                                        <path opacity="0.5"
+                                            d="M76.953 62.044c0-.45.366-.816.816-.816h2.721a.816.816 0 1 1 0 1.633h-2.72a.816.816 0 0 1-.817-.817Zm4.897 0c0-.45.366-.816.817-.816h2.72a.816.816 0 0 1 0 1.633h-2.72a.816.816 0 0 1-.816-.817Zm4.898 0c0-.45.365-.816.816-.816h2.721a.816.816 0 0 1 0 1.633h-2.72a.816.816 0 0 1-.817-.817Zm4.899 0c0-.45.365-.816.816-.816h2.72a.816.816 0 0 1 0 1.633h-2.72a.816.816 0 0 1-.816-.817Z"
+                                            fill="#fff"></path>
+                                        <path
+                                            d="M100.897 51.708c0-1.06-.986-1.908-2.23-1.908H74.83c-1.243 0-2.23.848-2.23 1.908v1.901h28.298v-1.901ZM72.6 92.79v1.901c0 1.06.986 1.908 2.23 1.908h23.794c1.244 0 2.273-.848 2.273-1.908V92.79H72.6Z"
+                                            fill="#E8E8E8"></path>
+                                        <path opacity="0.5"
+                                            d="M89.228 52.521h-4.416a.77.77 0 0 1-.555-.24.833.833 0 0 1-.23-.576c0-.217.083-.424.23-.578a.77.77 0 0 1 .555-.239h4.416a.77.77 0 0 1 .556.24c.147.153.23.36.23.577a.833.833 0 0 1-.23.577.77.77 0 0 1-.556.239Z"
+                                            fill="#A0A0A0"></path>
+                                        <path
+                                            d="M81.307 57.419c0-.902.73-1.633 1.632-1.633h7.075a1.633 1.633 0 0 1 0 3.265h-7.075c-.901 0-1.632-.73-1.632-1.632Z"
+                                            fill="#fff"></path>
+                                        <path
+                                            d="M77.497 87.893c0-1.202.975-2.177 2.177-2.177h14.149a2.177 2.177 0 0 1 0 4.354h-14.15a2.177 2.177 0 0 1-2.176-2.177Z"
+                                            fill="#F59F0A"></path>
+                                        <path opacity="0.5"
+                                            d="M76.953 80.002c0-.45.366-.816.816-.816h17.959a.816.816 0 1 1 0 1.633H77.769a.816.816 0 0 1-.816-.817Zm0 2.721c0-.45.366-.816.816-.816h13.605a.816.816 0 1 1 0 1.633H77.77a.816.816 0 0 1-.816-.817Z"
+                                            fill="#00227D"></path>
+                                    </g>
+                                    <path
+                                        d="m78.825 12.871-.957 2.562a.42.42 0 0 1-.224.24L75.253 16.7c-.338.145-.338.657 0 .802l2.39 1.026c.103.043.184.13.225.24l.957 2.562a.394.394 0 0 0 .748 0l.958-2.562a.42.42 0 0 1 .224-.24l2.391-1.026c.338-.145.338-.657 0-.802l-2.39-1.025a.419.419 0 0 1-.225-.24l-.957-2.563a.394.394 0 0 0-.749 0Z"
+                                        fill="#E6E6E6"></path>
+                                    <path
+                                        d="m94.152 35.053-.889 2.391a.39.39 0 0 1-.208.225l-2.22.957c-.314.135-.314.613 0 .748l2.22.957a.39.39 0 0 1 .208.225l.889 2.39c.125.339.57.339.695 0l.889-2.39a.39.39 0 0 1 .208-.225l2.22-.957c.314-.135.314-.613 0-.748l-2.22-.957a.39.39 0 0 1-.208-.225l-.89-2.39a.365.365 0 0 0-.694 0Z"
+                                        fill="#C2C2C2"></path>
+                                    <path
+                                        d="m96.831 11.27-1.709 4.44a.736.736 0 0 1-.4.418l-4.27 1.777c-.603.251-.603 1.14 0 1.39l4.27 1.778a.735.735 0 0 1 .4.416l1.71 4.44a.71.71 0 0 0 1.336 0l1.71-4.44a.734.734 0 0 1 .4-.417l4.27-1.777c.603-.25.603-1.139 0-1.39l-4.27-1.777a.734.734 0 0 1-.4-.417l-1.71-4.44a.71.71 0 0 0-1.337 0Z"
+                                        fill="#21C45D"></path>
+                                    <defs>
+                                        <linearGradient id="a" x1="48" y1="93.6" x2="70.163" y2="94.51"
+                                            gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#D9D9D9" stop-opacity="0"></stop>
+                                            <stop offset="0.849" stop-color="#737373" stop-opacity="0.3"></stop>
+                                            <stop offset="1" stop-color="#737373" stop-opacity="0.6"></stop>
+                                        </linearGradient>
+                                        <linearGradient id="b" x1="19.199" y1="82.2" x2="41.995" y2="82.502"
+                                            gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#D9D9D9" stop-opacity="0"></stop>
+                                            <stop offset="0.849" stop-color="#737373" stop-opacity="0.3"></stop>
+                                            <stop offset="1" stop-color="#737373" stop-opacity="0.6"></stop>
+                                        </linearGradient>
+                                        <clipPath id="c">
+                                            <rect x="72.6" y="49.8" width="28.298" height="46.8" rx="5" fill="#fff">
+                                            </rect>
+                                        </clipPath>
+                                    </defs>
+                                </svg></div>
+                            <div class="btn-huongdan">
+                                <a class="huong-dan" href="#">Nâng cấp ngay</a>
+                                <a class="tao-sp" href="#">Tạo sản phẩm</a>
+                            </div>
+                        </div>
+                        <div class="slide-item">
+                            <h2>Khám phá giao diện bán hàng
+                            </h2>
+                            <p>Bắt đầu trải nghiệm các tính năng bán hàng cùng TrueAds POS.
+                            </p>
+                            <div class="first-suggestion__img mgt-4 mgb-4 text-center w-100"><svg width="120"
+                                    height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#fff" d="M0 0h120v120H0z"></path>
+                                    <g clip-path="url(#a)">
+                                        <path d="M47.382 66.312h25.64v12.544h-25.64V66.313Z" fill="#1D4FD7"></path>
+                                        <path d="M67.77 66.312h5.252v12.544H67.77V66.313Z" fill="#0D3EC2"></path>
+                                        <path
+                                            d="M101.803 102.478H18.797a1.997 1.997 0 0 1-1.997-1.997v-21.33c0-1.102.895-1.996 1.997-1.996h83.006c1.103 0 1.997.894 1.997 1.997v21.329a1.997 1.997 0 0 1-1.997 1.997Zm-8.564-34.464H27.164a1.595 1.595 0 0 1-1.594-1.595V18.517a1.595 1.595 0 0 1 1.594-1.595H93.24a1.595 1.595 0 0 1 1.594 1.595V66.42a1.594 1.594 0 0 1-1.595 1.595Z"
+                                            fill="#EBEBEB"></path>
+                                        <path
+                                            d="M31.59 60.13V24.805c0-1.029.833-1.863 1.862-1.863h53.499c1.029 0 1.863.834 1.863 1.863V60.13a1.863 1.863 0 0 1-1.863 1.863H33.452a1.863 1.863 0 0 1-1.863-1.863Z"
+                                            fill="#1D4FD7"></path>
+                                        <path
+                                            d="M86.951 22.942H81.7c1.029 0 1.863.834 1.863 1.863V60.13a1.863 1.863 0 0 1-1.863 1.863h5.251a1.863 1.863 0 0 0 1.863-1.863V24.805a1.863 1.863 0 0 0-1.863-1.863Z"
+                                            fill="#0B3AB8"></path>
+                                        <path
+                                            d="M101.705 77.155h-5.153c1.103 0 1.997.894 1.997 1.997v21.329a1.997 1.997 0 0 1-1.997 1.997h5.153a1.997 1.997 0 0 0 1.997-1.997v-21.33a1.997 1.997 0 0 0-1.997-1.996Zm-8.466-60.233h-5.251a1.595 1.595 0 0 1 1.594 1.595V66.42a1.594 1.594 0 0 1-1.594 1.595h5.251a1.594 1.594 0 0 0 1.595-1.595V18.517a1.594 1.594 0 0 0-1.595-1.595Z"
+                                            fill="#D4D4D4"></path>
+                                        <path d="M91.453 93.65a3.834 3.834 0 1 0 0-7.667 3.834 3.834 0 0 0 0 7.667Z"
+                                            fill="#21C45D"></path>
+                                        <path
+                                            d="M80.867 55.719h-9.756a1.397 1.397 0 0 1-1.397-1.397v-5.596a1.397 1.397 0 0 1 1.397-1.397h9.756a1.397 1.397 0 0 1 1.397 1.397v5.596a1.397 1.397 0 0 1-1.397 1.397Z"
+                                            fill="#F59F0A"></path>
+                                        <path
+                                            d="M62.676 55.894H39.171c-.95 0-1.72-.77-1.72-1.72V30.669c0-.95.77-1.72 1.72-1.72h23.505c.95 0 1.72.77 1.72 1.72v23.505c0 .95-.77 1.72-1.72 1.72Z"
+                                            fill="#7ED8F6"></path>
+                                        <path
+                                            d="M78.133 91.13h-47.22a1.313 1.313 0 1 1 0-2.626h47.22a1.312 1.312 0 1 1 0 2.625Z"
+                                            fill="#D4D4D4"></path>
+                                        <path
+                                            d="M79.934 41.946h-8.025a1.313 1.313 0 0 1 0-2.626h8.025a1.313 1.313 0 1 1 0 2.626Zm0-5.6h-8.025a1.313 1.313 0 0 1 0-2.625h8.025a1.313 1.313 0 1 1 0 2.626Z"
+                                            fill="#7ED8F6"></path>
+                                        <path
+                                            d="M64.396 47.882h-7.562v-4.148h7.562v-2.626h-7.562V36.96h7.562v-2.626h-7.562V28.95h-2.626v5.385h-6.57V28.95h-2.625v5.385h-7.562v2.626h7.562v4.148h-7.562v2.626h7.562v4.148h-7.562v2.626h7.562v5.386h2.626v-5.386h6.57v5.386h2.625v-5.386h7.562v-2.626Zm-10.188 0h-6.57v-4.148h6.57v4.148Zm0-6.774h-6.57V36.96h6.57v4.148Z"
+                                            fill="#B6EDFF"></path>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="a">
+                                            <path fill="#fff" transform="translate(16.8 16.2)" d="M0 0h87v87H0z"></path>
+                                        </clipPath>
+                                    </defs>
+                                </svg></div>
+                            <div class="btn-huongdan">
+                                <a class="huong-dan" href="#">Nâng cấp ngay</a>
+                                <a class="tao-sp" href="#">Tạo sản phẩm</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="prev" style="position: absolute;transform: translateY(-50%);"
+                        onclick="prevSlide()">❮</button>
+                    <button class="next" style="position: absolute;transform: translateY(-50%);"
+                        onclick="nextSlide()">❯</button>
+                </div>
+                <div class="content-wrapper">
+                    <div class="title">Hướng dẫn sử dụng</div>
+                    <div class="tabs">
+                        <div class="tab active" onclick="openTab(event, 'san-pham')">Sản phẩm</div>
+                        <div class="tab" onclick="openTab(event, 'ton-kho')">Tồn kho</div>
+                        <div class="tab" onclick="openTab(event, 'don-hang')">Đơn hàng</div>
+                        <div class="tab" onclick="openTab(event, 'van-chuyen')">Vận chuyển</div>
+                        <div class="tab" onclick="openTab(event, 'kenh-ban-hang')">Kênh bán hàng</div>
+                    </div>
+
+                    <div id="san-pham" class="tab-content active" style="display: block;">
+                        <ul>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Thêm sản phẩm mới</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Nhập sản phẩm bằng file</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Hình ảnh sản phẩm</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Nhóm sản phẩm</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="ton-kho" class="tab-content" style="display: none;">
+                        <ul>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Tồn kho cơ bản</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Tồn kho nâng cao</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">So sánh tồn kho cơ bản và nâng cao</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Chuyển phương thức quản lý tồn kho</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="don-hang" class="tab-content" style="display: none;">
+                        <ul>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Tạo đơn hàng</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Các trạng thái đơn hàng</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Chỉnh sửa đơn hàng</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Quản lý đơn hàng</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="van-chuyen" class="tab-content" style="display: none;">
+                        <ul>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Kết nối Giao hàng nhanh</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Kết nối GrabExpress</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Thiết lập địa điểm giao hàng</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Quản lý vận đơn</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Quản lý thu hộ</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="kenh-ban-hang" class="tab-content" style="display: none;">
+                        <ul>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Tạo web bán hàng</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Sử dụng kênh bán hàng Shopee</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Sử dụng kênh bán hàng Tiki</a></li>
+                            <li><i class="fa-solid fa-list"></i> <a href="#">Sử dụng kênh bán hàng Lazada</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- Sidebar thông báo -->
+                <div id="overlay" class="overlay"></div>
+
+                <div id="notification-sidebar" class="sidebar">
+                    <button id="close-sidebar" class="close-button">×</button>
+                    <header class="main" style="height: 50px;">
+                        <h2 class="title"> Thông báo</h2>
+                    </header>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                </div>
+            </div>
+
+            <script
+                src="https://trueads.ai/wp-content/plugins/dashboardd/assets/js/dashboard/index.js?v=1740533258"></script>
+        </div>
+
+    </div>
+    <div class="notify">
+        <div id="overlay" class="overlay"></div>
+        <div id="notification-sidebar" class="sidebar">
+            <button id="close-sidebar" class="close-button">&times;</button>
+            <header class="main" style="height: 50px;">
+                <h2 class="title"> Thông báo</h2>
+            </header>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+        </div>
+    </div>
+</div>
+<script src="https://trueads.ai/wp-content/plugins/dashboardd/assets/js/layout/index.js?v=1740533258"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

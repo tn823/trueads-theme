@@ -1,0 +1,1773 @@
+<link rel="shortcut icon" href="https://trueads.ai/wp-content/plugins/dashboardd/assets/img/logo-trueads.png"
+    type="image/x-icon">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+<link rel="stylesheet" href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://trueads.ai/wp-content/plugins/dashboardd/assets/js/main.js?v=1740533258"></script>
+<link rel="stylesheet" href="https://trueads.ai/wp-content/plugins/dashboardd/assets/css/style.css">
+<link rel="stylesheet" href="https://trueads.ai/wp-content/plugins/dashboardd/assets/css/responsive.css">
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link rel="stylesheet" href="/style/style.css">
+<link rel="stylesheet" href="/style/responsive.css">
+<style>
+    .itempage.active {
+        background: #ffffff;
+    }
+
+    .modal-backdrop {
+        --bs-backdrop-zindex: 1 !important;
+    }
+
+    .note-editing-area .note-editable {
+        background-color: #ffffff;
+    }
+
+    .wrapped {
+        overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+        .ban-con {
+            grid-template-columns: 100%;
+        }
+    }
+</style>
+<style>
+    .wrapper-loading-page {
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        background-color: rgba(0, 21, 36, 0.92);
+        width: 100vw;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+
+    .container-loading-page {
+        height: 300px;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .baton {
+        display: block;
+        height: 2px;
+        width: 70px;
+        background-color: #459fa5;
+        animation: scale 1.25s infinite linear;
+        -webkit-transform-origin: 0;
+        -moz-transform-origin: 0;
+        -ms-transform-origin: 0;
+        -o-transform-origin: 0;
+        transform-origin: 0;
+        -webkit-transform: rotate(-10deg);
+        -moz-transform: rotate(-10deg);
+        -ms-transform: rotate(-10deg);
+        -o-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+
+    .baton:before {
+        content: "";
+        display: block;
+        height: 5px;
+        width: 5px;
+        background-color: #f5a51c;
+        position: absolute;
+        top: -2px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    .baton:after {
+        content: "";
+        display: block;
+        height: 5px;
+        width: 5px;
+        background-color: #f5a51c;
+        position: absolute;
+        top: -2px;
+        right: 0;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    .metronome {
+        -webkit-transform-origin: 0;
+        -moz-transform-origin: 0;
+        -ms-transform-origin: 0;
+        -o-transform-origin: 0;
+        transform-origin: 0;
+        animation: metronome 1.25s infinite linear;
+    }
+
+    .baton-0 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+
+    .baton-0 .baton,
+    .baton-0 .baton:after,
+    .baton-0 .metronome {
+        animation-delay: 0s;
+    }
+
+    .baton-1 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(10deg);
+        -moz-transform: rotate(10deg);
+        -ms-transform: rotate(10deg);
+        -o-transform: rotate(10deg);
+    }
+
+    .baton-1 .baton,
+    .baton-1 .baton:after,
+    .baton-1 .metronome {
+        animation-delay: -0.14s;
+    }
+
+    .baton-2 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(20deg);
+        -moz-transform: rotate(20deg);
+        -ms-transform: rotate(20deg);
+        -o-transform: rotate(20deg);
+    }
+
+    .baton-2 .baton,
+    .baton-2 .baton:after,
+    .baton-2 .metronome {
+        animation-delay: -0.28s;
+    }
+
+    .baton-3 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(30deg);
+        -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+        -o-transform: rotate(30deg);
+    }
+
+    .baton-3 .baton,
+    .baton-3 .baton:after,
+    .baton-3 .metronome {
+        animation-delay: -0.42s;
+    }
+
+    .baton-4 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(40deg);
+        -moz-transform: rotate(40deg);
+        -ms-transform: rotate(40deg);
+        -o-transform: rotate(40deg);
+    }
+
+    .baton-4 .baton,
+    .baton-4 .baton:after,
+    .baton-4 .metronome {
+        animation-delay: -0.56s;
+    }
+
+    .baton-5 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(50deg);
+        -moz-transform: rotate(50deg);
+        -ms-transform: rotate(50deg);
+        -o-transform: rotate(50deg);
+    }
+
+    .baton-5 .baton,
+    .baton-5 .baton:after,
+    .baton-5 .metronome {
+        animation-delay: -0.7s;
+    }
+
+    .baton-6 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(60deg);
+        -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+        -o-transform: rotate(60deg);
+    }
+
+    .baton-6 .baton,
+    .baton-6 .baton:after,
+    .baton-6 .metronome {
+        animation-delay: -0.84s;
+    }
+
+    .baton-7 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(70deg);
+        -moz-transform: rotate(70deg);
+        -ms-transform: rotate(70deg);
+        -o-transform: rotate(70deg);
+    }
+
+    .baton-7 .baton,
+    .baton-7 .baton:after,
+    .baton-7 .metronome {
+        animation-delay: -0.98s;
+    }
+
+    .baton-8 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(80deg);
+        -moz-transform: rotate(80deg);
+        -ms-transform: rotate(80deg);
+        -o-transform: rotate(80deg);
+    }
+
+    .baton-8 .baton,
+    .baton-8 .baton:after,
+    .baton-8 .metronome {
+        animation-delay: -1.12s;
+    }
+
+    .baton-9 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+    }
+
+    .baton-9 .baton,
+    .baton-9 .baton:after,
+    .baton-9 .metronome {
+        animation-delay: -1.26s;
+    }
+
+    .baton-10 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(100deg);
+        -moz-transform: rotate(100deg);
+        -ms-transform: rotate(100deg);
+        -o-transform: rotate(100deg);
+    }
+
+    .baton-10 .baton,
+    .baton-10 .baton:after,
+    .baton-10 .metronome {
+        animation-delay: -1.4s;
+    }
+
+    .baton-11 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(110deg);
+        -moz-transform: rotate(110deg);
+        -ms-transform: rotate(110deg);
+        -o-transform: rotate(110deg);
+    }
+
+    .baton-11 .baton,
+    .baton-11 .baton:after,
+    .baton-11 .metronome {
+        animation-delay: -1.54s;
+    }
+
+    .baton-12 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(120deg);
+        -moz-transform: rotate(120deg);
+        -ms-transform: rotate(120deg);
+        -o-transform: rotate(120deg);
+    }
+
+    .baton-12 .baton,
+    .baton-12 .baton:after,
+    .baton-12 .metronome {
+        animation-delay: -1.68s;
+    }
+
+    .baton-13 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(130deg);
+        -moz-transform: rotate(130deg);
+        -ms-transform: rotate(130deg);
+        -o-transform: rotate(130deg);
+    }
+
+    .baton-13 .baton,
+    .baton-13 .baton:after,
+    .baton-13 .metronome {
+        animation-delay: -1.82s;
+    }
+
+    .baton-14 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(140deg);
+        -moz-transform: rotate(140deg);
+        -ms-transform: rotate(140deg);
+        -o-transform: rotate(140deg);
+    }
+
+    .baton-14 .baton,
+    .baton-14 .baton:after,
+    .baton-14 .metronome {
+        animation-delay: -1.96s;
+    }
+
+    .baton-15 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(150deg);
+        -moz-transform: rotate(150deg);
+        -ms-transform: rotate(150deg);
+        -o-transform: rotate(150deg);
+    }
+
+    .baton-15 .baton,
+    .baton-15 .baton:after,
+    .baton-15 .metronome {
+        animation-delay: -2.1s;
+    }
+
+    .baton-16 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(160deg);
+        -moz-transform: rotate(160deg);
+        -ms-transform: rotate(160deg);
+        -o-transform: rotate(160deg);
+    }
+
+    .baton-16 .baton,
+    .baton-16 .baton:after,
+    .baton-16 .metronome {
+        animation-delay: -2.24s;
+    }
+
+    .baton-17 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(170deg);
+        -moz-transform: rotate(170deg);
+        -ms-transform: rotate(170deg);
+        -o-transform: rotate(170deg);
+    }
+
+    .baton-17 .baton,
+    .baton-17 .baton:after,
+    .baton-17 .metronome {
+        animation-delay: -2.38s;
+    }
+
+    .baton-18 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+    }
+
+    .baton-18 .baton,
+    .baton-18 .baton:after,
+    .baton-18 .metronome {
+        animation-delay: -2.52s;
+    }
+
+    .baton-19 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(190deg);
+        -moz-transform: rotate(190deg);
+        -ms-transform: rotate(190deg);
+        -o-transform: rotate(190deg);
+    }
+
+    .baton-19 .baton,
+    .baton-19 .baton:after,
+    .baton-19 .metronome {
+        animation-delay: -2.66s;
+    }
+
+    .baton-20 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(200deg);
+        -moz-transform: rotate(200deg);
+        -ms-transform: rotate(200deg);
+        -o-transform: rotate(200deg);
+    }
+
+    .baton-20 .baton,
+    .baton-20 .baton:after,
+    .baton-20 .metronome {
+        animation-delay: -2.8s;
+    }
+
+    .baton-21 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(210deg);
+        -moz-transform: rotate(210deg);
+        -ms-transform: rotate(210deg);
+        -o-transform: rotate(210deg);
+    }
+
+    .baton-21 .baton,
+    .baton-21 .baton:after,
+    .baton-21 .metronome {
+        animation-delay: -2.94s;
+    }
+
+    .baton-22 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(220deg);
+        -moz-transform: rotate(220deg);
+        -ms-transform: rotate(220deg);
+        -o-transform: rotate(220deg);
+    }
+
+    .baton-22 .baton,
+    .baton-22 .baton:after,
+    .baton-22 .metronome {
+        animation-delay: -3.08s;
+    }
+
+    .baton-23 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(230deg);
+        -moz-transform: rotate(230deg);
+        -ms-transform: rotate(230deg);
+        -o-transform: rotate(230deg);
+    }
+
+    .baton-23 .baton,
+    .baton-23 .baton:after,
+    .baton-23 .metronome {
+        animation-delay: -3.22s;
+    }
+
+    .baton-24 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(240deg);
+        -moz-transform: rotate(240deg);
+        -ms-transform: rotate(240deg);
+        -o-transform: rotate(240deg);
+    }
+
+    .baton-24 .baton,
+    .baton-24 .baton:after,
+    .baton-24 .metronome {
+        animation-delay: -3.36s;
+    }
+
+    .baton-25 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(250deg);
+        -moz-transform: rotate(250deg);
+        -ms-transform: rotate(250deg);
+        -o-transform: rotate(250deg);
+    }
+
+    .baton-25 .baton,
+    .baton-25 .baton:after,
+    .baton-25 .metronome {
+        animation-delay: -3.5s;
+    }
+
+    .baton-26 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(260deg);
+        -moz-transform: rotate(260deg);
+        -ms-transform: rotate(260deg);
+        -o-transform: rotate(260deg);
+    }
+
+    .baton-26 .baton,
+    .baton-26 .baton:after,
+    .baton-26 .metronome {
+        animation-delay: -3.64s;
+    }
+
+    .baton-27 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+    }
+
+    .baton-27 .baton,
+    .baton-27 .baton:after,
+    .baton-27 .metronome {
+        animation-delay: -3.78s;
+    }
+
+    .baton-28 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(280deg);
+        -moz-transform: rotate(280deg);
+        -ms-transform: rotate(280deg);
+        -o-transform: rotate(280deg);
+    }
+
+    .baton-28 .baton,
+    .baton-28 .baton:after,
+    .baton-28 .metronome {
+        animation-delay: -3.92s;
+    }
+
+    .baton-29 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(290deg);
+        -moz-transform: rotate(290deg);
+        -ms-transform: rotate(290deg);
+        -o-transform: rotate(290deg);
+    }
+
+    .baton-29 .baton,
+    .baton-29 .baton:after,
+    .baton-29 .metronome {
+        animation-delay: -4.06s;
+    }
+
+    .baton-30 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(300deg);
+        -moz-transform: rotate(300deg);
+        -ms-transform: rotate(300deg);
+        -o-transform: rotate(300deg);
+    }
+
+    .baton-30 .baton,
+    .baton-30 .baton:after,
+    .baton-30 .metronome {
+        animation-delay: -4.2s;
+    }
+
+    .baton-31 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(310deg);
+        -moz-transform: rotate(310deg);
+        -ms-transform: rotate(310deg);
+        -o-transform: rotate(310deg);
+    }
+
+    .baton-31 .baton,
+    .baton-31 .baton:after,
+    .baton-31 .metronome {
+        animation-delay: -4.34s;
+    }
+
+    .baton-32 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(320deg);
+        -moz-transform: rotate(320deg);
+        -ms-transform: rotate(320deg);
+        -o-transform: rotate(320deg);
+    }
+
+    .baton-32 .baton,
+    .baton-32 .baton:after,
+    .baton-32 .metronome {
+        animation-delay: -4.48s;
+    }
+
+    .baton-33 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(330deg);
+        -moz-transform: rotate(330deg);
+        -ms-transform: rotate(330deg);
+        -o-transform: rotate(330deg);
+    }
+
+    .baton-33 .baton,
+    .baton-33 .baton:after,
+    .baton-33 .metronome {
+        animation-delay: -4.62s;
+    }
+
+    .baton-34 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(340deg);
+        -moz-transform: rotate(340deg);
+        -ms-transform: rotate(340deg);
+        -o-transform: rotate(340deg);
+    }
+
+    .baton-34 .baton,
+    .baton-34 .baton:after,
+    .baton-34 .metronome {
+        animation-delay: -4.76s;
+    }
+
+    .baton-35 {
+        height: 1px;
+        width: 150px;
+        position: absolute;
+        top: calc(50% - 8px);
+        -webkit-transform-origin: 100%;
+        -moz-transform-origin: 100%;
+        -ms-transform-origin: 100%;
+        -o-transform-origin: 100%;
+        transform-origin: 100%;
+        -webkit-transform: rotate(350deg);
+        -moz-transform: rotate(350deg);
+        -ms-transform: rotate(350deg);
+        -o-transform: rotate(350deg);
+    }
+
+    .baton-35 .baton,
+    .baton-35 .baton:after,
+    .baton-35 .metronome {
+        animation-delay: -4.9s;
+    }
+
+    @keyframes metronome {
+        0% {
+            -webkit-transform: rotate(-25deg);
+            -moz-transform: rotate(-25deg);
+            -ms-transform: rotate(-25deg);
+            -o-transform: rotate(-25deg);
+            transform: rotate(-25deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(25deg);
+            -moz-transform: rotate(25deg);
+            -ms-transform: rotate(25deg);
+            -o-transform: rotate(25deg);
+            transform: rotate(25deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(-25deg);
+            -moz-transform: rotate(-25deg);
+            -ms-transform: rotate(-25deg);
+            -o-transform: rotate(-25deg);
+            transform: rotate(-25deg);
+        }
+    }
+
+    @keyframes scale {
+        0% {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            -o-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+        25% {
+            -webkit-transform: scaleX(0.74);
+            -moz-transform: scaleX(0.74);
+            -ms-transform: scaleX(0.74);
+            -o-transform: scaleX(0.74);
+            transform: scaleX(0.74);
+        }
+
+        50% {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            -o-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+        75% {
+            -webkit-transform: scaleX(1.16);
+            -moz-transform: scaleX(1.16);
+            -ms-transform: scaleX(1.16);
+            -o-transform: scaleX(1.16);
+            transform: scaleX(1.16);
+        }
+
+        100% {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            -o-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+    }
+</style>
+<body>
+</body>
+<div class="wrapper-loading-page" style="display: none;">
+    <div class="container-loading-page">
+        <div class="baton-0">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-1">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-2">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-3">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-4">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-5">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-6">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-7">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-8">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-9">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-10">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-11">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-12">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-13">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-14">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-15">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-16">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-17">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-18">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-19">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-20">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-21">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-22">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-23">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-24">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-25">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-26">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-27">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-28">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-29">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-30">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-31">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-32">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-33">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-34">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+        <div class="baton-35">
+            <div class="metronome">
+                <div class="baton"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app">
+    <style>
+        .custom-tippy-style .tippy-box {
+            color: #000;
+            background-color: #fff !important;
+            box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+        }
+
+        .action-header-item {
+            width: 100%;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .action-header-item:hover {
+            background-color: rgb(243, 244, 245);
+        }
+    </style>
+    <div class="header">
+        <div class="logo">
+            <img src="https://trueads.ai/wp-content/plugins/dashboardd/\assets\img\logo.png" alt="Logo"
+                style="height: 35px;">
+            <div class="breadcrumb">
+                <h4 class="pagename">Giao diện</h4>
+            </div>
+        </div>
+        <div class="header-right">
+            <!-- <i class="far fa-comment-alt" title="Gửi góp ý"></i> -->
+            <i class="fas fa-bars" id="bar-icon"></i>
+            <i class="far fa-bell" id="notification-icon"></i>
+            <div class="user-info" id="user-header" title="Thông tin tài khoản">
+                <span>Tên dev</span>
+                <img src="https://trueads.ai/wp-content/plugins/dashboardd//assets/img/user-icon.png" alt="User Avatar">
+            </div>
+        </div>
+    </div>
+
+    <div id="actions-header" style="width: 200px; display: none;flex-direction: column;">
+        <!-- <div style="width: 100%;">
+        <a href="javascript:void(0);">Thông tin tài khoản</a>
+    </div>
+    <hr /> -->
+        <div class="action-header-item">
+            <div style="width: 20px; height: 20px; color: rgb(163, 168, 175);">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" focusable="false"
+                    aria-hidden="true">
+                    <path fill="currentColor"
+                        d="M20 3h-9c-1.103 0-2 .897-2 2v4h2v-4h9v14h-9v-4h-2v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2">
+                    </path>
+                    <path fill="currentColor" d="m7 16-5-4 5-4v3h9v2h-9z"></path>
+                </svg>
+            </div>
+            <a href="javascript:void(0);" style="text-decoration: none;" onclick="logoutSubSite();">Đăng xuất cửa
+                hàng</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const actionsHeader = document.getElementById("actions-header");
+            const u = document.getElementById("user-header");
+            tippy(u, {
+                content: actionsHeader,
+                trigger: "click",
+                interactive: true,
+                placement: "bottom",
+                arrow: false,
+                onShow(instanceHeadless) {
+                    const tippyBox = instanceHeadless.popper;
+                    if (tippyBox.querySelector("#actions-header")) {
+                        tippyBox.classList.add("custom-tippy-style");
+                    }
+
+                    actionsHeader.style.display = "flex";
+                },
+
+            });
+        });
+    </script>
+    <div class="wrapped">
+        <div class="sidebar_main" id="menu-sidebar">
+            <div class="menu">
+                <ul>
+                    <li class="menu-item" data-arg="dashboards">
+                        <div class="icon-box">
+                            <i class="fas fa-home"></i> <a href="?arg=dashboards&param=index" aria-current="page"> Trang
+                                tổng quan</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="dashboards">
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="products">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="#4B5563">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m17.058 9.685-6.75-6.75A1.49 1.49 0 0 0 9.25 2.5H4c-.825 0-1.5.675-1.5 1.5v5.25c0 .412.165.787.442 1.065l6.75 6.75c.27.27.646.435 1.058.435.412 0 .787-.165 1.057-.442l5.25-5.25c.278-.27.443-.646.443-1.058 0-.412-.172-.795-.442-1.065Zm-6.308 6.322L4 9.25V4h5.25v-.007l6.75 6.75-5.25 5.264Z">
+                                    </path>
+                                    <path d="M5.875 7a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"></path>
+                                </svg>
+                            </svg> <a href="?arg=products&param=index" aria-current="page"> Sản phẩm</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="products">
+                            <li class="itempage" data-param="index"><a href="?arg=products&param=index"> Tất cả sản
+                                    phẩm</a></li>
+                            <li class="itempage" data-param="indexcategorys"><a
+                                    href="?arg=products&param=indexcategorys"> Danh mục sản phẩm</a></li>
+                            <li class="itempage" data-param="brands"><a href="?arg=products&param=brands"> Thương
+                                    hiệu</a></li>
+                            <li class="itempage" data-param="attribute"><a href="?arg=products&param=attribute"> Thuộc
+                                    tính sản phẩm</a></li>
+                            <li class="itempage" data-param="sort_attr"><a href="?arg=products&param=sort_attr"> Bộ lọc
+                                    sản phẩm</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="orders">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="#4B5563"><svg viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13.41 10.75c.562 0 1.057-.307 1.312-.773l2.685-4.867A.747.747 0 0 0 16.755 4h-11.1L4.95 2.5H2.497V4h1.5l2.7 5.693-1.012 1.83c-.548 1.005.172 2.227 1.312 2.227h9v-1.5h-9l.825-1.5h5.588ZM6.367 5.5h9.113l-2.07 3.75H8.145L6.367 5.5Zm.63 9c-.825 0-1.492.675-1.492 1.5s.667 1.5 1.492 1.5 1.5-.675 1.5-1.5-.675-1.5-1.5-1.5Zm7.5 0c-.825 0-1.492.675-1.492 1.5s.667 1.5 1.492 1.5 1.5-.675 1.5-1.5-.675-1.5-1.5-1.5Z">
+                                    </path>
+                                </svg></svg> <a href="?arg=orders&param=index" aria-current="page"> Đơn hàng</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="orders">
+                            <li class="itempage" data-param="index"><a href="?arg=orders&param=index"> Danh sách đơn
+                                    hàng</a></li>
+                            <li class="itempage" data-param="create"><a href="?arg=orders&param=create"> Tạo đơn
+                                    hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="customers">
+                        <div class="icon-box">
+                            <svg width="20" height="20" fill="#4B5563" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.502 10.848c1.028.697 1.748 1.642 1.748 2.902V16h3v-2.25c0-1.635-2.678-2.602-4.748-2.902ZM12.25 10a3 3 0 1 0 0-6c-.352 0-.682.075-.998.18a4.485 4.485 0 0 1 0 5.64c.316.105.646.18.998.18Zm-4.5 0a3 3 0 1 0 0-6 3 3 0 1 0 0 6Zm0-4.5c.825 0 1.5.675 1.5 1.5s-.675 1.5-1.5 1.5-1.5-.675-1.5-1.5.675-1.5 1.5-1.5Zm0 5.25c-2.003 0-6 1.005-6 3V16h12v-2.25c0-1.995-3.998-3-6-3Zm4.5 3.75h-9v-.742c.15-.54 2.475-1.508 4.5-1.508s4.35.967 4.5 1.5v.75Z">
+                                </path>
+                            </svg> <a href="?arg=customers&param=index" aria-current="page"> Khách hàng</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="customers">
+                            <li class="itempage" data-param="index"><a href="?arg=customers&param=index"> Danh sách
+                                    khách hàng</a></li>
+                            <li class="itempage" data-param="create"><a href="?arg=customers&param=create"> Tạo khách
+                                    hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="settings">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                                <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                            </svg> <a href="?arg=settings&param=index" aria-current="page"> Cài đặt</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="settings">
+                            <li class="itempage" data-param="payment"><a href="?arg=settings&param=payment"> Cài đặt
+                                    thanh toán</a></li>
+                            <li class="itempage" data-param="email"><a href="?arg=settings&param=email"> Cài đặt
+                                    email</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item" data-arg="interfaces">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icon-tabler-layout-dashboard">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <rect x="4" y="4" width="6" height="8" rx="2"></rect>
+                                <rect x="4" y="16" width="6" height="4" rx="2"></rect>
+                                <rect x="14" y="12" width="6" height="8" rx="2"></rect>
+                                <rect x="14" y="4" width="6" height="4" rx="2"></rect>
+                            </svg>
+                            <a href="?arg=interfaces&param=index" aria-current="page"> Website</a>
+                        </div>
+
+                        <ul class="submenu" data-arg="interfaces">
+                            <li class="itempage" data-param="interface"><a
+                                    href="/itf-true-ads.html"> Giao
+                                    diện</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="icon-box"><i class="fas fa-comment-medical"></i>
+                    <a href="https://dev-true-ads.trueads.ai/dashboard/social-channel/" target="_blank">Social
+                        channel</a>
+                </div>
+                <!-- <ul>
+            <a class="_main_menu_parent_ims2a_30 active" href="#" aria-current="page">
+                <div>Kênh bán hàng</div>
+                <div class="_add_channel_btn_ims2a_48"><img src="data:image/svg+xml,%3csvg%20viewBox='0%200%2016%2016'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M6%204.474c-.26.26-.26.68%200%20.94L8.587%208%206%2010.587a.664.664%200%201%200%20.94.94L10%208.467c.26-.26.26-.68%200-.94l-3.06-3.06a.67.67%200%200%200-.94.007Z'%20fill='%239CA3B0'/%3e%3c/svg%3e" width="20" height="20" alt="icon-right">
+                </div>
+
+            </a>
+            <li class="menu-item">
+                <div class="icon-box">
+                    <svg width="20" height="20" fill="#4B5563"><svg viewBox="0 0 40 40" fill="none">
+                            <rect width="40.001" height="40" rx="4" fill="#B3E5FC"></rect>
+                            <rect x="2" y="2" width="36.001" height="36" rx="4" fill="#0091EA"></rect>
+                            <path d="M26.63 18.482a1.61 1.61 0 0 1-1.608-1.608h-.568l.58-.08-.687-4.973h2.011c.314 0 .591.21.677.511l1.202 4.611a1.61 1.61 0 0 1-1.607 1.54Zm-13.642-6.148a.704.704 0 0 1 .677-.513h2.01l-.687 4.973.58.08h-.591a1.61 1.61 0 0 1-1.608 1.608 1.612 1.612 0 0 1-1.607-1.538l1.226-4.61Zm6.437-.513v5.053h-.05a1.61 1.61 0 0 1-1.608 1.608 1.61 1.61 0 0 1-1.607-1.604l.698-5.057h2.567Zm3.74 0 .005.04.693 5.012h-.023a1.61 1.61 0 0 1-1.607 1.61 1.61 1.61 0 0 1-1.609-1.61h-.026v-5.052h2.566Zm5.002.212-.002-.009a1.88 1.88 0 0 0-1.807-1.375H13.665a1.88 1.88 0 0 0-1.807 1.375l-1.269 4.773v.076c0 .956.485 1.801 1.221 2.3v5.496c0 .744.606 1.35 1.35 1.35h13.705a1.35 1.35 0 0 0 1.349-1.35v-5.512a2.777 2.777 0 0 0 1.196-2.284v-.075l-1.243-4.765Z" fill="#fff"></path>
+                            <path d="M17.871 27.275h4.258v-1.29H17.87v1.29Z" fill="#fff"></path>
+                            <path d="M23.25 28.53h-6.5a.644.644 0 1 1 0-1.288h6.5a.645.645 0 0 1 0 1.289" fill="#fff"></path>
+                        </svg></svg>
+                    <a href="#">Website </a>
+                    <div class="_menu_item_right_action_wrapper_ims2a_221"><span class="trigger ml-auto"><span class="_menu_item_right_action_ims2a_129"><img src="data:image/svg+xml,%3csvg%20width='18'%20height='18'%20viewBox='0%200%2018%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M9%203.375C5.25%203.375%202.047%205.707.75%209c1.297%203.293%204.5%205.625%208.25%205.625S15.953%2012.293%2017.25%209C15.953%205.707%2012.75%203.375%209%203.375Zm0%209.375c-2.07%200-3.75-1.68-3.75-3.75%200-2.07%201.68-3.75%203.75-3.75%202.07%200%203.75%201.68%203.75%203.75%200%202.07-1.68%203.75-3.75%203.75Zm0-6A2.247%202.247%200%200%200%206.75%209%202.247%202.247%200%200%200%209%2011.25%202.247%202.247%200%200%200%2011.25%209%202.247%202.247%200%200%200%209%206.75Z'%20fill='%239CA3B0'/%3e%3c/svg%3e" alt="icon eye" width="18" height="18"></span></span></div>
+                </div>
+
+                <ul class="submenu">
+                    <li><a href="#">Cấu hình chung</a>
+                        <ul class="submenu">
+                            <li><a href="#">Tất cả trang</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Thiết lập tổng quan</a></li>
+                    <li><a href="#">Menu</a></li>
+                    <li><a href="#">Tin tức</a>
+                        <ul class="submenu">
+                            <li><a href="#">Tất cả tin tức</a></li>
+                            <li><a href="#">Danh mục tin tức</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">User đăng nhập</a></li>
+                    <li><a href="#">Mã code</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                    <li><a href="#">Thanh toán</a>
+                        <ul class="submenu">
+                            <li><a href="#">Bật/tắt hình thức thanh toán</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+            </div>
+
+
+        </div>
+        <div class="content">
+            <div class="container content-dashboard">
+                <div class="ui">
+                    <div class="ui-title">
+                        <h2>Giao diện</h2>
+                        <a href="#" class="ui-button ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icon-tabler-eye">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <circle cx="12" cy="12" r="2"></circle>
+                                <path d="M22 12c-2.5 -4 -6.5 -7 -10 -7s-7.5 3 -10 7c2.5 4 6.5 7 10 7s7.5 -3 10 -7">
+                                </path>
+                            </svg>
+                            Xem website của bạn
+                        </a>
+                    </div>
+                    <div class="ui-annotated mr-b-25">
+                        <div class="ui-annotated-title">
+                            <h3>Giao diện đang sử dụng</h3>
+                            <p>Khách hàng sẽ thấy giao diện này khi họ xem website của bạn.</p>
+                        </div>
+                        <div class="ui-annotated-content">
+                            <div class="ui-cart brg-all">
+                                <div class="ui-published-theme">
+                                    <div class="published-stack">
+                                        <h3>DefaultTheme</h3>
+                                    </div>
+                                    <div class="published-theme-actions">
+                                        <div class="dropdown-theme-actions">
+                                            <div class="ui-dropdown">
+                                                <button class="ui-dropdown-button">Thao tác <span>▼</span></button>
+                                                <div class="ui-dropdown-menu">
+                                                    <a href="#">Xem thử giao diện</a>
+                                                    <a href="#">Đổi tên</a>
+                                                    <a href="#">Sao chép</a>
+                                                    <a href="#">Chỉnh sửa HTML/CSS</a>
+                                                    <a href="#">Chỉnh sửa ngôn ngữ</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="/editor-itf-true-ads.html" class="btn btn-primary">
+                                            Tùy chỉnh giao diện
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ui-theme-previews">
+                                    <div class="theme-preview">
+                                        <div class="img-inner">
+                                            <img src="/assets/laptop-frame.png" alt="">
+                                            <img src="/assets/theme-preview-desktop.png"
+                                                alt="Theme preview desktop" />
+                                        </div>
+                                    </div>
+                                    <div class="theme-preview-mobile">
+                                        <div class="img-inner">
+                                            <img src="/assets/phone-frame.png" alt="">
+                                            <img src="/assets/theme-preview-mobile.png"
+                                                alt="Theme preview mobile" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-annotated mr-b-25">
+                        <div class="ui-annotated-title">
+                            <h3>Danh sách giao diện</h3>
+                            <p>Quản lý các giao diện của cửa hàng. Thêm và áp dụng giao diện cho cửa hàng của bạn.</p>
+                            <button id="uploadBtn"><i class="fa-solid fa-file-arrow-up"></i> Tải lên giao diện</button>
+                            
+                            <!-- Modal -->
+                            <div id="uploadModal" class="modal">
+                                <div class="modal-content">
+                                    <div class="uploadModal-title">
+                                    <h3>Tải lên</h3>
+                                    <span class="uploadModal-close">&times;</span>
+                                    </div>
+                                    <p>Tải <b class="highlight">file.zip</b> chứa theme của bạn. Theme tải lên sẽ được mặc định chưa hiển thị.</p>
+                                    <input type="file" id="fileInput" accept=".zip">
+                                    <div class="modal-footer">
+                                        <button id="uploadModal-cancelBtn">Hủy</button>
+                                        <button id="uploadModal-confirmUpload">Tải lên</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-annotated-content">
+                            <div class="ui-cart brg-all">
+                                <div class="find-themes-list">
+                                    <div class="find-themes-list-row">
+                                        <div class="ui-theme-stack">
+                                            <div class="ui-item-svg">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="currentColor"
+                                                    class="icon icon-tabler icons-tabler-filled icon-tabler-paint">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M17 2a3 3 0 0 1 2.995 2.824l.005 .176a3 3 0 0 1 3 3a6 6 0 0 1 -5.775 5.996l-.225 .004h-4l.15 .005a2 2 0 0 1 1.844 1.838l.006 .157v4a2 2 0 0 1 -1.85 1.995l-.15 .005h-2a2 2 0 0 1 -1.995 -1.85l-.005 -.15v-4a2 2 0 0 1 1.85 -1.995l.15 -.005v-1a1 1 0 0 1 .883 -.993l.117 -.007h5a4 4 0 0 0 4 -4a1 1 0 0 0 -.883 -.993l-.117 -.007l-.005 .176a3 3 0 0 1 -2.819 2.819l-.176 .005h-10a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-2a3 3 0 0 1 2.824 -2.995l.176 -.005h10z" />
+                                                </svg>
+                                            </div>
+                                            <div class="ui-item-content">
+                                                <div class="ui-item-description">
+                                                    <h3>Giao diện đã mua</h3>
+                                                    <p>Danh sách các giao diện đã được mua cho website.</p>
+                                                </div>
+                                                <div class="ui-item-action">
+                                                    <a href="#" class="btn btn-primary">Giao diện đã mua</a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="find-themes-list-row">
+                                        <div class="ui-theme-stack border-0 mr-b-0 pad-b-0">
+                                            <div class="ui-item-svg">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-building-warehouse">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M3 21v-13l9 -4l9 4v13" />
+                                                    <path d="M13 13h4v8h-10v-6h6" />
+                                                    <path d="M13 21v-9a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v3" />
+                                                </svg>
+                                            </div>
+                                            <div class="ui-item-content">
+                                                <div class="ui-item-description">
+                                                    <h3>Kho giao diện</h3>
+                                                    <p>Xem thêm các giao diện khác trên kho giao diện của chúng tôi.</p>
+                                                </div>
+                                                <div class="ui-item-action">
+                                                    <a href="#" class="btn btn-primary">Kho giao diện</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-help">
+                        <div class="ui-help-content">
+                            <div class="ui-help-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="#33BFC1" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" stroke="#33BFC1" />
+                                    <path d="M12 16h.01" stroke="#33BFC1" />
+                                    <path d="M12 12a2 2 0 1 0-2-2" stroke="#33BFC1" />
+                                </svg>
+
+                            </div>
+                            <p>Bạn có thể xem thêm hướng dẫn về quản lý giao diện <a href="#">tại đây</a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar thông báo -->
+                <div id="overlay" class="overlay"></div>
+
+                <div id="notification-sidebar" class="sidebar">
+                    <button id="close-sidebar" class="close-button">×</button>
+                    <header class="main" style="height: 50px;">
+                        <h2 class="title"> Thông báo</h2>
+                    </header>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                    <div class="notification-content">
+                        <div class="notification-list">
+                            <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram
+                            </h1>
+                            <p>Trước đây, TrueAds đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion
+                                API (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách
+                                hiệu quả. Giờ đây, TrueAds chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết
+                                thêm kênh bán hàng Instagram.</p>
+                            <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                                alt="Hình gì đó" width="500" height="100">
+                            <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                            <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                            <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                            <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng
+                                quảng cáo của Meta.</p>
+                            <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                            <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                                Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                        </div>
+                    </div>
+                    <button id="show-more">Xem thêm</button>
+                </div>
+            </div>
+
+            <script
+                src="https://trueads.ai/wp-content/plugins/dashboardd/assets/js/dashboard/index.js?v=1740533258"></script>
+        </div>
+
+    </div>
+    <div class="notify">
+        <div id="overlay" class="overlay"></div>
+        <div id="notification-sidebar" class="sidebar">
+            <button id="close-sidebar" class="close-button">&times;</button>
+            <header class="main" style="height: 50px;">
+                <h2 class="title"> Thông báo</h2>
+            </header>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+            <div class="notification-content">
+                <div class="notification-list">
+                    <h1 class="title">Ra mắt công cụ chia sẻ sự kiện mua hàng lên Facebook Ads từ kênh Instagram</h1>
+                    <p>Trước đây, Harasocial đã cho phép gởi sự kiện chuyển đổi kênh Facebook thông qua Conversion API
+                        (CAPI), giúp doanh nghiệp theo dõi và tối ưu chiến lược quảng cáo Facebook một cách hiệu quả.
+                        Giờ đây, Harasocial chính thức mở rộng kết nối, hỗ trợ các nhà bán hàng liên kết thêm kênh bán
+                        hàng Instagram.</p>
+                    <img src="https://trueads.ai/wp-content/plugins/dashboardd//trueadsM/assets/image/introduction_post_1.2.webp"
+                        alt="Hình gì đó" width="500" height="100">
+                    <p>Với sự kiện CAPI kết nối thêm Instagram, nhà bán hàng có thể:</p>
+                    <p>✅ Đo lường hiệu quả chiến dịch quảng cáo Facebook và Instagram.</p>
+                    <p>✅ Không cần cài đặt phức tạp, không cần code, hệ thống tự động đồng bộ.</p>
+                    <p>✅ Dữ liệu chính xác giúp đo lường được nguồn đơn hàng, chi phí, lợi nhuận đối với từng quảng cáo
+                        của Meta.</p>
+                    <p>✅ Tăng tỷ lệ chuyển đổi, ghi nhận dữ liệu từ các khách hàng tiềm năng.</p>
+                    <p>✅ Với cập nhật mới, bạn có thể nắm bắt mọi chuyển đổi trên đa kênh từ online đến offline:
+                        Website, Livestream Facebook, Facebook Reels, Instagram, Cửa hàng.</p>
+
+                </div>
+            </div>
+            <button id="show-more">Xem thêm</button>
+        </div>
+    </div>
+</div>
+<script src="https://trueads.ai/wp-content/plugins/dashboardd/assets/js/layout/index.js?v=1740533258"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="js/index.js"></script>
