@@ -1228,7 +1228,7 @@
         });
     </script>
     <div class="wrapped">
-        <div class="sidebar_main" id="menu-sidebar">
+        <div class="sidebar_main theme-editor" id="menu-sidebar">
             <div class="header-editor-sidebar">
                 <div class="editor-sidebar-logo">
                     <img src="/assets/favicon.png" alt="Logo" style="height: 40px;">
@@ -1237,10 +1237,10 @@
                     <div class="editor-name">
                         <p>DefaultTheme</p>
                     </div>
-                    <div class="editor-status mobile-only">
+                    <div class="editor-status open-bar">
                         <p>live</p>
                     </div>
-                    <div class="editor-confirm mobile-only">
+                    <div class="editor-confirm open-bar">
                         <button>Lưu</button>
                     </div>
                 </div>
@@ -4133,9 +4133,8 @@
             </div>
         </div>
         <div class="content editor-theme">
-            <div class="container content-dashboard">
+            <div class="container content-theme-editor">
                 <div class="editor-screen">
-                    <i class="fas fa-bars" id="bar-icon"></i>
                     <div class="list-screen">
                         <div class="mobile-screen">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -4158,14 +4157,15 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="editor-status">
+                    <div class="editor-status close-bar">
                         <p>Live</p>
                     </div>
-                    <div class="editor-confirm">
+                    <div class="editor-confirm close-bar">
                         <button>
                             Lưu
                         </button>
                     </div>
+                    <i class="fas fa-bars" id="bar-icon"></i>
                 </div>
                 <div class="editor-theme">
                     <img src="/assets/theme-preview-desktop.png" alt="" style="width: 100%;">

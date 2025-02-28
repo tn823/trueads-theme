@@ -1,20 +1,29 @@
 .hidden {
     display: none;
 }
-.test {
-    opacity: 0;
+html {
+    font-size: 62.5%;
 }
-.absolute {
-    position: absolute;
+.sidebar_main.theme-editor,
+.container.content-theme-editor {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
+.menu.editor-theme {
+    height: 100%;
+}
+.container .editor-theme {
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+
+
 :root {
     --color-primary: #fb5831;
 }
-/* @media screen and (min-width: 600px) {
-    .mobile-only {
-        display: none !important;
-    }
-} */
 .mr-b-25 {
     margin-bottom: 25px;
 }
@@ -407,9 +416,7 @@ button {
 .uploadModal-close {
     margin-bottom: 16px;
 }
-.menu.editor-theme {
-    max-height: 657px;
-}
+
 .menu.editor-theme p {
     white-space: nowrap;
     overflow: hidden;
@@ -562,10 +569,11 @@ button {
     margin-top: 0;
 }
 .next-cart-header h3 {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 1.3rem;
+    line-height: 2rem;
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: .04em;
     color: #212b35;
 }
 .theme-setting-checkbox {
@@ -587,23 +595,39 @@ button {
 .editor-panel-body label{
     margin-bottom: 5px;
 }
+.theme-setting-text input{
+    min-height: 36px;
+}
 .menu.editor-theme .editor-panel-body p {
     white-space: inherit;
     word-wrap: break-word;
 }
 .editor-panel-body p.help-txt {
-    margin-top: 5px;
     color: #637381;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2rem;
+    text-transform: initial;
+    letter-spacing: initial;
+    color: #637381;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin-top: .4rem;
+    margin-bottom: 0;
 }
 .theme-setting-image,
 .theme-setting-textarea,
 .theme-setting-text,
-.theme-setting-select {
+.theme-setting-select,
+.theme-setting-page,
+.theme-setting-color {
     margin: 15px 0
+}
+.theme-setting-textarea textarea {
+    min-height: 100px;
 }
 .editor-panel-body input {
     font-size: 15px;
-    margin-top: 3px;
     
 }
 .theme-setting-select input {
@@ -619,11 +643,26 @@ button {
 }
 
 .editor-panel-body span {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2rem;
+    text-transform: initial;
+    letter-spacing: initial;
     color: #637381;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin-top: .4rem;
 }
 .editor-panel-body p,
 .editor-panel-body label {
     color: #1a1a1a;
+    display: block;
+    margin-bottom: .5rem;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    font-weight: 400;
+    text-transform: initial;
+    letter-spacing: initial;
 }
 #colorInput {
     width: 40px;
@@ -646,7 +685,6 @@ button {
     font-style: italic;
     font-size: 12px;
     color: #95a7b7;
-    margin: 5px;
 
 }
 .theme-setting-image-preview .img-inner {
@@ -683,5 +721,5 @@ button {
 .setting-color-form {
     display: flex;
     gap: 10px;
-    align-items: end;
+    align-items: center;
 }

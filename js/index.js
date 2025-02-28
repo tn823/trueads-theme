@@ -130,10 +130,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
-
-
 //upload img
 document.querySelectorAll(".replace-image-btn").forEach(button => {
     button.addEventListener("click", function () {
@@ -157,5 +153,10 @@ document.querySelectorAll(".image-input").forEach(input => {
     });
 });
 
+
+//add tranform 
+document.getElementById("bar-icon").addEventListener("click", function () {
+    document.getElementById("menu-sidebar").classList.toggle("transform");
+});
 
 

@@ -1,5 +1,25 @@
 /*RESPONSIVE */
+@media screen and (max-width: 949px) and (min-width: 769px) and (orientation: landscape) {
+    .open-bar {
+        display: block;
+    }
+    .close-bar {
+        display: none;
+    }
+    .sidebar_main.theme-editor {
+        left: 0;
+        right: inherit;
+    }
+}
+@media screen and (min-width: 950px) {
+    .open-bar {
+        display: none;
+    }
 
+    .close-bar {
+        display: block;
+    }
+}
 @media screen and (max-width: 1024px) {
     .ui-annotated-title {
         margin-left: 15px;
@@ -21,7 +41,15 @@
 
 @media screen and (max-width: 992px) and (min-width: 768px) and (orientation: landscape) {}
 
-@media screen and (max-width: 768px) {}
+@media screen and (max-width: 768px) {
+    .sidebar_main.theme-editor {
+        left: 0;
+        right: inherit;
+    }
+    .close-bar {
+        display: none;
+    }
+}
 
 @media screen and (max-width: 549px) {
     .ui-published-theme {
